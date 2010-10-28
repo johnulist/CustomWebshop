@@ -1,7 +1,15 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+    class Instelling extends AppModel
+    {
+        var $useTable = 'instellingen';
 
+        /**
+         * Laadt algemene configuratie uit de database
+         * in de shop.
+         */
+        function load()
+        {
+
+        }
+    }
 ?>

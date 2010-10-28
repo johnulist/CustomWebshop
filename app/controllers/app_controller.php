@@ -15,7 +15,7 @@
 	{
 		public $components = array('Auth','Session');
 		public $helpers = array('Html','Form','Javascript','Text','Time', 'Session','Image','Number','Cw');
-		public $uses = array('Gebruiker');
+		public $uses = array('Gebruiker','Instelling');
 
         /**
          * CakePHP hook. Wordt aangeroepen aan het begin van ieder request,
