@@ -5,14 +5,32 @@
 
         var $fields = array(
             'id' => array('type' => 'integer', 'key' => 'primary'),
+            'gebruiker_id' => 'integer',
+            'huidige_status' => 'string',
+            'factuurnummer' => 'string',
+            'besteldatum' => 'datetime',
+            'betaalmethode' => 'string',
+            'betaalcode' => 'string',
+            'isBetaald' => 'integer',
+            'betaaldatum' => 'datetime',
+            'btw_percentage' => 'integer',
+            'factuuradres' => 'string',
+            'afleveradres' => 'string',
+            'aflevermethode' => 'string',
+            'aflevercode' => 'string',
+            'opmerkingen' => 'text',
+            'subtotaal_excl' => 'float',
+            'korting_excl' => 'float',
+            'verzendkosten_excl' => 'float',
+            'totaal_excl' => 'float',
+            'btw_bedrag' => 'float',
+            'totaal_incl' => 'float',
             'created' => 'datetime',
-            'updated' => 'datetime'
+            'modified' => 'datetime'
         );
 
         var $records = array(
-            array ('id' => 1, 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
-            array ('id' => 2, 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31'),
-            array ('id' => 3, 'created' => '2007-03-18 10:43:23', 'updated' => '2007-03-18 10:45:31')
+
         ); 
     }
  ?>

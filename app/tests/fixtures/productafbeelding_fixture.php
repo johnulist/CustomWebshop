@@ -1,18 +1,19 @@
 <?php
-    class InstellingFixture extends CakeTestFixture
+    class ProductafbeeldingFixture extends CakeTestFixture
     {
-        var $name = 'Instelling';
+        var $name = 'Productafbeelding';
 
         var $fields = array(
             'id' => array('type' => 'integer', 'key' => 'primary'),
-            'key' => 'string',
-            'value' => 'string',
+            'product_id' => 'integer',
+            'productvariant_id' => 'integer',
+            'isHoofdafbeelding' => 'integer',
             'created' => 'datetime',
             'modified' => 'datetime'
         );
 
         var $records = array(
-            
+
         );
     }
  ?>
