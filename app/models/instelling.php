@@ -9,7 +9,12 @@
          */
         function load()
         {
+            $instellingen = $this->find('all');
 
+			foreach ($instellingen as $variabele)
+			{
+			 	Configure::write($variabele['Instelling']['key'], $variabele['Instelling']['value']);
+			}
         }
     }
 ?>

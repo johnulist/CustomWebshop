@@ -22,7 +22,6 @@
         print $html->css('reset')."\n";
         print $html->css('basic')."\n";
         print $html->css('formstables')."\n";
-        print $html->css('beheer')."\n";
 	?>
 
 	<!-- javascript -->
@@ -36,6 +35,12 @@
 	<!-- Container met afgeronde hoeken, omvat de hele site -->
 	<div id="sitecontainer">
 
+        <div id="navcontainer">
+            <ul>
+                <li><?php echo $html->link('Dashboard','/gebruikers/dashboard/'); ?></li>
+                <li><?php echo $html->link('Beheer','/admin/bestellingen/'); ?></li>
+            </ul>
+        </div>
 
         <div id="contentcontainer">
             <div id="side"></div>
@@ -48,6 +53,7 @@
 
     </div>
 
+    <div id="debug"><?php pr($params); ?></div>
 	<?php echo $this->element('sql_dump'); ?>
     <?php /* @todo google analytics */ ?>
 </body>

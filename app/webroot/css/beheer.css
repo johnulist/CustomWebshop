@@ -1,0 +1,391 @@
+/**
+ * CSS Bestand voor Custom Webshop dashboard
+ */
+/** Algemeen **/
+html, body 	{ height: 100%; margin: 0 0 1px; padding: 0; }
+body 		{ text-align: center; background: #fff;  font-family: arial,verdana; font-size: 1em; }
+.clear 		{ clear: both; }
+#admincontainer	{ width: 950px; margin: 0 auto; text-align: left; clear: both; background: #FFF; }
+
+#container {
+	margin: auto 0;
+	width: auto;
+	min-width:950px;
+	text-align:left;
+	padding:0;
+}
+
+#header {
+	text-align: left;
+}
+
+#body {
+	text-align: left;
+	min-height: 600px;
+}
+
+#main {
+	float:right;
+	margin-left:-31em;
+	width:100%;
+	margin-top: 1em;
+}
+
+#links {
+	float: left;
+	width: 30em;
+	margin-left: 1em;
+	margin-top: 1em;
+	position: relative;
+}
+
+#content {
+	margin-left: 31em;
+	float:none;
+	width:auto;
+	position:static;
+}
+
+#footer {
+	clear: both;
+	text-align: left;
+}
+
+#header {
+	color: #4B4B4B;
+	background: #fff;
+}
+
+#header #site_title {
+	display: block;
+	background: url('../img/dashboard/cmslogo.png') no-repeat;
+	text-indent: -999px;
+	width: 375px;
+	height: 95px;
+	padding: 0;
+	float: left;
+	margin: 0 0 0 15px;
+}
+
+#header #site_index {
+	color: #fff;
+	float: right;
+}
+
+#header #login_info {
+	color: #fff;
+	float: right;
+}
+
+#header a {
+	display: block;
+	padding: 1em;
+}
+
+#navgradient {
+	background: #eee url('../img/dashboard/bg-header.png') repeat-x;
+	height: 10px;
+	width: 100%;
+	display: block;
+}
+
+.groepen ul {
+	margin: 0;
+	padding: 0;
+}
+
+.groepen li {
+	list-style-type: none;
+	display: block;
+	float: left;
+	margin: 10px;
+}
+
+.groepen li a {
+	padding: 10px 0px 0;
+	color: #4B4B4B;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+}
+
+.groepen li a span {
+	display: block;
+	line-height: 16px;
+	padding-top: 4px;
+	font-size: 12px;
+	font-weight: bold;
+	width: 100px;
+	text-align: center;
+}
+
+.groepen li a:hover {
+	background: #EEE;
+}
+
+#zoeken {
+	float: right;
+	padding: 2em;
+}
+
+#zoeken input[type=text] {
+	padding: 2px;
+}
+
+#links {
+	margin-bottom: 1em;
+}
+
+
+
+.block {
+	border: 1px solid #cccccc;
+	background: #fff url('../img/dashboard/bg-gradient.png') repeat-x;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin-bottom: 1em;
+}
+
+.block-titel {
+	margin: 0;
+	display: block;
+	padding: 8px 1em;
+	font-size: 16px;
+	color: #333;
+	font-weight: bold;
+}
+
+.block-feeds {
+	padding: 10px;
+	background: #fff;
+}
+
+.block-feeds a {
+	text-decoration: none;
+	line-height: 1.5em;
+}
+
+.block-faq {
+	padding: 10px 10px 10px 15px;
+	background: #fff;
+}
+
+.block-faq p {
+	width: 500px;
+	font-family: arial;
+	line-height: 1.5em;
+}
+
+.closed { background: url('../img/dashboard/arrow-q.png') no-repeat 0 15px; }
+.open   { background: url('../img/dashboard/arrow-q-open.png') no-repeat 0 15px; }
+.q { padding: 10px 10px 10px 15px; cursor:pointer; display:inline; text-decoration:underline; color: #4B4B4B; font-size: 1em; }
+.a { padding: 10px 10px 10px 15px; font-family: arial; width: 500px;  line-height: 1.4em;}
+
+#contentmargin {
+	margin: 0 1em 1em;
+	position: relative;
+	background: #eee url('../img/dashboard/bg-gradient.png') repeat-x;
+}
+
+#footer {
+	background: #4B4B4B;
+	color: #fff;
+	padding: 1em;
+	text-align: center;
+}
+
+#nav {
+	clear: both;
+	height: 40px;
+	background: #fff url('../img/dashboard/cw_nav.png');
+}
+
+#nav ul, #nav li {
+	margin: 0;
+}
+
+#nav li {
+	list-style-type: none;
+	float: left;
+}
+
+#nav li a{
+	display: block;
+	padding: 10px 30px;
+	line-height: 18px;
+	font-size: 14px;
+	text-decoration: none;
+	color: #fff;
+}
+
+#login_info a {
+	float: right;
+
+}
+
+#container {
+	background : #eee;
+}
+/** BUTTONS **/
+button {
+	margin: 0 0 3px 5px;
+	background:url("../img/dashboard/btn_bg.gif") repeat-x scroll 0 100% #FFAC47;
+	border-color:#ED6502 #A04300 #A04300 #ED6502;
+	border-style:solid;
+	border-width:1px;
+	color:#FFFFFF;
+	cursor:pointer;
+	font:bold 12px arial,helvetica,sans-serif;
+	padding:0 7px 1px;
+	text-align:center !important;
+	white-space:nowrap;
+}
+button:hover                    { background:#f77c16 url(../img/dashboard/btn_over_bg.gif) repeat-x 0 0; }
+button:active                   { background:#f77c16 url(../img/dashboard/btn_on_bg.gif) repeat-x 0 0; }
+button span                     { line-height:1.35em; background-repeat:no-repeat; background-position:0 50%; }
+button.delete,
+button.save,
+button.add                      { padding-left:6px; }
+button.cancel span,
+button.delete span,
+button.save span,
+button.add span,
+button.back span { padding-left:20px; }
+button.back { border-color:#ccc #aaa #aaa #ccc; background-color:#fff; background-image:url(../img/dashboard/btn_back_bg.gif); color:#555; }
+button.back span { background-image:url(../img/dashboard/icon_btn_back.gif); }
+button.cancel,
+button.delete { border-color:#d24403 #a92000 #a92000 #d24403; background-image:url(../img/dashboard/cancel_btn_bg.gif); background-color:#fcaf81; color:#fff; }
+button.cancel:hover,
+button.delete:hover { background-image:url(../img/dashboard/cancel_btn_over_bg.gif); }
+button.cancel:active,
+button.delete:active { background-image:url(../img/dashboard/cancel_btn_active_bg.gif); background-color:#e0612f; }
+button.cancel span,
+button.delete span { background-image:url(../img/dashboard/cancel_btn_icon.gif); }
+button.add span     { background-image:url(../img/dashboard/add_btn_icon.gif); }
+button.save span    { background-image:url(../img/dashboard/save_btn_icon.gif); }
+
+/* algemene formcss */
+.blok-dataform 								{ margin: 0; padding: 0; }
+.blok-dataform .input .inputHintOverlay 	{ text-align: left; color: #999; width: auto; cursor: text; }
+.blok-dataform .input 						{ clear: both; border-bottom: 1px solid #eee; display: block; background: #fff; }
+.blok-dataform .error						{ background: #FFEFEF; border-bottom: 1px solid #FFDFDF; }
+.blok-dataform .content-blok .textarea		{ border: 0; }
+
+/* labels en errormessage */
+.blok-dataform .input label 				{ width: 180px; background: #F6F6F6; text-align: left; float: left; padding: 9px 0 9px 1em; line-height: 20px; }
+.blok-dataform .error label					{ background: #FFEFEF; color: #F00; font-weight: bold;}
+.blok-dataform .error-message				{ background: #FFEFEF; display: block; padding: 8px 1em; }
+.blok-dataform .required label 				{ font-weight: bold; }
+.blok-dataform .textarea label				{ height: 158px; }
+.blok-dataform .textarea textarea			{ height: 154px; padding: 4px; margin: 6px 0; width: 420px; border: 1px solid #79B7E7; }
+.blok-dataform .input .checkbox label		{ background: #FFFFFF; width: auto; line-height: 14px; padding: 9px 4px 9px 8px; }
+.blok-dataform .input .checkbox input		{ float: left; margin: 10px 0 8px 8px;}
+
+
+/* inputvelden algemeen */
+.blok-dataform .input input[type=text],
+.blok-dataform .input input[type=password] 			{ border: 1px solid #79B7E7; padding: 4px; line-height: 16px; width: 420px; margin: 6px 0 6px 6px; background: #fff; }
+.blok-dataform .input input[type=file] 				{ border: 1px solid #79B7E7; padding: 4px; margin: 7px 0 7px 6px; background: #fff; }
+.blok-dataform .input select						{ border: 1px solid #79B7E7; padding: 3px; margin: 6px 0 6px 6px; background: #fff; }
+.blok-dataform .input input[type=text].currency		{ width: 100px; }
+.blok-dataform .submit 								{ margin-top: 10px; }
+
+/* lijsten met data */
+table.lijst		{ font-size: 0.8em; border-collapse: collapse; margin: 0; border: 0;}
+table.lijst td  { border-bottom: 1px solid #ccc; }
+table.lijst td.onderwerp {  }
+table.lijst th  { text-align: left; border-bottom: 1px solid #ccc; background: #FFEDDF; }
+table.lijst tr.altrow { background: #ccc; }
+table.lijst a	{ text-decoration: none; color: #4A86EF; }
+table.lijst a:hover	{ text-decoration: underline;}
+
+td.optie-cell {
+    width: 16px;
+}
+
+tr.nested-row-0 td.nested-cell { padding-left: 26px; background: url('../img/dashboard/tree-nodes-1.png') repeat-y -1px 3px; }
+tr.nested-row-1 td.nested-cell { padding-left: 46px; background: url('../img/dashboard/tree-nodes-2.png') repeat-y 0 3px; }
+tr.nested-row-2 td.nested-cell { padding-left: 66px; background: url('../img/dashboard/tree-nodes-3.png') repeat-y 1px 3px; }
+tr.nested-row-3 td.nested-cell { padding-left: 84px; background: url('../img/dashboard/tree-nodes-4.png') repeat-y 1px 3px; }
+tr.nested-row-4 td.nested-cell { padding-left: 104px; background: url('../img/dashboard/tree-nodes-5.png') repeat-y 1px 3px; }
+
+/* TinyMCE layout */
+.blok-dataform .textarea label { margin-right: 6px; }
+.mceLayout, #content .mceLayout { margin: 6px 0 6px 0px; border-color: #79B7E7; }
+#content table.mceLayout tr.mceFirst td { border-color: #79B7E7; }
+
+#cta {
+	position: absolute;
+	top: 40px;
+	right: 10px;
+}
+
+/** TABS **/
+ul#tabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px; /*--Set height of tabs--*/
+	border-bottom: 1px solid #999;
+	width: 100%;
+	font-size: 10px;
+}
+ul#tabs li.firsttab {
+	border-right: 1px solid #999;
+	border-bottom: none;
+	border-top: none;
+	display: block;
+	width: 10px;
+	background: #eee;
+}
+ul#tabs li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px; /*--Subtract 1px from the height of the unordered list--*/
+	line-height: 31px; /*--Vertically aligns the text within the tab--*/
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px; /*--Pull the list item down 1px--*/
+	overflow: hidden;
+	position: relative;
+	background: #e0e0e0;
+}
+ul#tabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 1.2em;
+	padding: 0 20px;
+	border: 1px solid #FFEDDF; /*--Gives the bevel look with a 1px white border inside the list item--*/
+	outline: none;
+}
+ul#tabs li a:hover {
+	background: #ccc;
+}
+html ul#tabs li.active, html ul#tabs li.active a:hover  { /*--Makes sure that the active tab does not listen to the hover properties--*/
+	background: #FFEDDF;
+	border-bottom: 1px solid #FFEDDF; /*--Makes the active tab look like it's connected with its content--*/
+}
+
+.tab_container {
+	border-top: none;
+	overflow: hidden;
+	clear: both;
+	float: left; width: 100%;
+	background: #fff;
+}
+.tab_content {
+	padding: 20px;
+	font-size: 1em;
+}
+
+th, td {
+    padding:0.5em;
+}
+
+td, label {
+    color:#65626E;
+    line-height:1.5em;
+}

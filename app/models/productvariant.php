@@ -1,7 +1,11 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+    class Productvariant extends AppModel
+    {
+        var $name = 'Productvariant';
+        var $useTable = 'productvarianten';
+        var $actsAs = array('Slug' => array('separator' => '-', 'overwrite' => true, 'label' => 'naam'));
 
-?>
+        // Relaties met andere modellen
+        var $belongsTo = array('Product');
+    }
+ ?>

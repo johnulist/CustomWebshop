@@ -1,7 +1,10 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-?>
+    class Productafbeelding extends AppModel
+    {
+        var $name = 'Productafbeelding';
+        var $useTable = 'productafbeeldingen';
+        
+        // Relaties met andere modellen
+        var $belongsTo = array('Product');
+    }
+ ?>

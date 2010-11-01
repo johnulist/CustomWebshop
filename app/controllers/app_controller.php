@@ -38,13 +38,54 @@
             // Authorisatie initialiseren
             $this->_laadGebruiker();
 
-            // Laden van de metadefaults
+            // Laden van de (meta)defaults
 	        $this->Instelling->load();
+            $this->params['siteNaam'] = Configure::read('Site.naam');
+            $this->params['siteLocales'] = explode(",",Configure::read('Site.locales'));
 	        $this->params['meta_title'] = Configure::read('Site.meta_title');
 	        $this->params['meta_keywords'] = Configure::read('Site.meta_keywords');
 	        $this->params['meta_description'] = Configure::read('Site.meta_description');
 
+            // Locale koppelen aan de view, indien aanwezig
+            $locale = Configure::read('Config.language');
+            if ($locale && file_exists(VIEWS . $locale . DS . $this->viewPath))
+            {
+                // bijv. /app/views/fre/winkelwagen/index.ctp instead of /app/views/winkelwagen/index.ctp
+                $this->viewPath = $locale . DS . $this->viewPath;
+            }
+
+            // Layout default of beheer afhankelijk van prefix
+            if(isset($this->params['prefix']) && $this->params['prefix'] == "admin")
+            {
+                $this->layout = 'beheer';
+            }
 		}
+
+        /**
+         * Controleert rechten afhankelijk van het al dan niet
+         * aanroepen van een beheerdersfunctie.
+         *
+         * @return boolean
+         */
+        function isAuthorized()
+        {
+            if(isset($this->params['prefix']) && $this->params['prefix'] == "admin")
+            {
+                return $this->isBeheerder();
+            }
+
+            return true;
+        }
+
+        /**
+         * Controleert of de gebruiker ingelogd is als beheerder.
+         *
+         * @return boolean
+         */
+        function isBeheerder()
+        {
+            return ($this->Auth->user('isBeheerder') == 1);
+        }
 
         /**
          * Initialiseert de AuthComponent en laad de gebruiker
@@ -59,7 +100,8 @@
 	        $this->Auth->autoRedirect = true;
 
             // Gebruiker laden
-            $this->params['gebruiker'] = $this->Auth->user();
+            $gebruiker = $this->Auth->user();
+            $this->params['gebruiker'] = $gebruiker['Gebruiker'];
         }
 
         function _laadWinkelwagen()

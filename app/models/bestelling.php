@@ -1,7 +1,7 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+    class Bestelling extends AppModel
+    {
+        var $useTable = 'bestellingen';
+        var $belongsTo = array('Gebruiker');
+    }
 ?>
