@@ -1,0 +1,81 @@
+/**
+ Grid size 960px breed
+ Kolom 1:
+*/
+#header #logo {
+    display: block;
+    width: 460px;
+    height: 80px;
+    float: left;
+    line-height: 80px;
+    vertical-align: middle;
+    margin: 0;
+}
+
+#sitecontainer {
+    clear: both;
+}
+
+#navcontainer {
+    margin: 10px 0;
+    background: #EEE;
+}
+#navcontainer li {
+    float: left;
+    padding: 5px;
+}
+
+#winkelwagen {
+    width: 199px;
+    float: right;
+    border-left: 1px solid #EEE;
+    padding-left: 50px;
+    background: #fff url('../img/default/winkelwagen_48x48.png') 20px 45px no-repeat;
+}
+
+#winkelwagen #account {
+    padding: 10px 0 5px;
+    float: right;
+}
+
+#winkelwagen h3 {
+    float: right;
+    clear: both;
+    padding: 20px 0 5px;
+}
+
+#winkelwagen #inhoud {
+    float: right;
+    clear: both;
+}
+
+#links {
+    background: #EEE;
+}
+#links li {
+    padding: 5px 10px;
+    margin-bottom: 0px;
+}
+#rechts {
+    border-left: 1px solid #EEE;
+    width: 229px;
+    background: #fff;
+    margin-bottom: 0px;
+}
+
+#content {
+    margin-bottom: 0px;
+}
+
+#footer {
+    clear: both;
+    border-top: 1px solid #EEE;
+    background: #fff;
+    color: #333;
+    padding: 10px 0;
+    text-align: right;
+}
+
+#debug {
+    margin-top: 200px;
+}

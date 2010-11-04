@@ -102,6 +102,7 @@
             // Gebruiker laden
             $gebruiker = $this->Auth->user();
             $this->params['gebruiker'] = $gebruiker['Gebruiker'];
+            $this->params['isIngelogd'] = !empty($gebruiker);
         }
 
         function _laadWinkelwagen()
@@ -123,6 +124,42 @@
 
                 $this->Session->write('winkelwagen', $this->params['winkelwagen']);
 			}
+        }
+
+        /**
+         * Voegt een product toe aan de winkelwagen van een bezoeker
+         * en update de totalen in de winkelwagen.
+         *
+         * @param integer $product_id   ID van het te bestellen product
+         * @param integer $variant_id   ID van een mogelijke variant
+         */
+        function _plaatsInWinkelwagen($product_id, $variant_id = null)
+        {
+            // Model en data van product laden
+            $this->loadModel('Product');
+            $product = $this->Product->read(null, $product_id);
+
+            // Update van prijs en aantal
+            $this->params['winkelwagen']['aantal'] = $this->params['winkelwagen']['aantal'] + 1;
+            $this->params['winkelwagen']['totaal'] = $this->params['winkelwagen']['totaal'] + $product['Product']['prijs'];
+
+            // Locatie van toevoegen bepalen (nieuw of extra?)
+            if(array_key_exists($product_id, $this->params['winkelwagen']['producten']))
+            {
+                // bestaat al, extra
+                $this->params['winkelwagen']['producten'][$product_id]['aantal']++;
+            }
+            else
+            {
+                // nieuwe entry
+                $this->params['winkelwagen']['producten'][$product_id] = array(
+                    'aantal' => 1,
+                    'product' => $product['Product']
+                );
+            }
+
+            $this->Session->write('winkelwagen', $this->params['winkelwagen']);
+            return true;
         }
 
         /**

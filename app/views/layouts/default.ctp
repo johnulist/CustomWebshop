@@ -19,8 +19,9 @@
 
         // Overige header tags
         print "<link rel='shortcut icon' href='/img/favicon.ico' type='image/ico' />\n";
-        print $html->css('reset')."\n";
         print $html->css('basic')."\n";
+        print $html->css('drie-960')."\n";
+        print $html->css('default')."\n";
         print $html->css('formstables')."\n";
 	?>
 
@@ -32,28 +33,53 @@
 
 <body>
 
-	<!-- Container met afgeronde hoeken, omvat de hele site -->
-	<div id="sitecontainer">
+    <div id="header">
+        <h1 id="logo"><?php echo $html->link('[Naam Webshop]','/'); ?></h1>
+        <?php echo $this->element('winkelwagen'); ?>
+        <div class="clear"></div>
+    </div><!-- end header -->
+
+    <div id="sitecontainer"><!-- sets background to white and creates full length leftcol-->
 
         <div id="navcontainer">
             <ul>
                 <li><?php echo $html->link('Dashboard','/gebruikers/dashboard/'); ?></li>
                 <li><?php echo $html->link('Beheer','/admin/bestellingen/'); ?></li>
             </ul>
-        </div>
-
-        <div id="contentcontainer">
-            <div id="side"></div>
-            <div id="flash"><?php echo $session->flash(); ?></div>
-            <div id="content"><?php echo $content_for_layout; ?></div>
             <div class="clear"></div>
         </div>
-        
-        <div id="footer"></div>
 
-    </div>
+        <div id="container"><!-- sets background to white and creates full length rightcol-->
 
-    <div id="debug"><?php pr($params); ?></div>
+            <div id="columns"><!-- begin main content area -->
+
+                <div id="links"><!-- begin leftcol -->
+                    <h2>Opties</h2>
+                </div><!-- end leftcol -->
+
+                <div id="rechts"><!-- begin rightcol -->
+                    <p>This is the right column</p>
+                </div><!-- end righttcol -->
+
+                <div id="content"><!-- begin centercol -->
+
+                    <div id="flash"><?php echo $session->flash(); ?></div>
+
+                    <?php echo $content_for_layout; ?>
+
+                </div><!-- end centercol -->
+
+            </div><!-- end columns area -->
+
+            <div id="footer"><!-- begin footer -->
+                <p>This is the footer</p>
+            </div><!-- end footer -->
+
+        </div><!-- end container -->
+
+    </div><!-- end sitecontainer -->
+
+    <div id="debug"><h2>Debugging</h2><?php pr($params); ?></div>
 	<?php echo $this->element('sql_dump'); ?>
     <?php /* @todo google analytics */ ?>
 </body>

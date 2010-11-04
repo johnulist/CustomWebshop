@@ -19,5 +19,20 @@
                 'unique' => true
             )
         );
+
+        function afterFind($results, $primary)
+        {
+            // Itereren over producten
+            foreach ($results as $key => $val)
+            {
+                // Controleren of we een product kunnen vinden
+                if (isset($val['Product']))
+                {
+                    $results[$key]['Product']['prijs'] = (empty($val['Product']['aanbiedingsprijs']) ? $val['Product']['verkoopprijs'] : $val['Product']['aanbiedingsprijs']);
+                }
+            }
+
+            return $results;
+        }
     }
  ?>

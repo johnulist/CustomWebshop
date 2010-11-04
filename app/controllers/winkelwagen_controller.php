@@ -11,5 +11,10 @@
         {
             parent::beforeFilter();
         }
+
+        function index()
+        {
+            
+        }
     }
 ?>

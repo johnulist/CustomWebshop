@@ -24,6 +24,58 @@
         }
 
         /**
+         * Toont een overzicht van producten die in de aanbieding
+         * zijn. Indien er slides actief zijn wordt ook de slider
+         * hierboven getoond.
+         */
+        function aanbiedingen()
+        {
+            $this->paginate = array(
+                'conditions' => array(
+                    'Product.aanbiedingsprijs IS NOT NULL',
+                    'Product.voorraad >' => 0,
+                    'Product.beschikbaar' => 1
+                ),
+                'order' => 'Product.aanbiedingsprijs ASC',
+                'limit' => 9
+            );
+            $this->data = $this->Paginate('Product');
+        }
+
+        /**
+         * Voegt een product toe aan de winkelwagen van een bezoeker
+         * en update de totalen in de winkelwagen.
+         *
+         * @param integer $product_id
+         */
+        function bestellen($product_id, $variant_id = null)
+        {
+            // proberen het product toe te voegen
+            if($this->_plaatsInWinkelwagen($product_id, $variant_id))
+            {
+                $this->Session->setFlash(__('SUCCES_TOEVOEGEN_WINKELWAGEN'), 'flash_succes');
+            }
+            else
+            {
+                $this->Session->setFlash(__('ERROR_TOEVOEGEN_WINKELWAGEN'), 'flash_error');
+            }
+
+            $this->redirect('/winkelwagen/');
+        }
+
+        /**
+         * Toont een detailpagina van een product
+         *
+         * @param <type> $slug          Slug voor SEO-redenen
+         * @param <type> $product_id    Het ID van het te tonen product
+         */
+        function details($slug, $product_id)
+        {
+            $this->data = $this->Product->read(null, $product_id);
+        }
+
+
+        /**
          * Beheer van producten
          */
         function admin_index()

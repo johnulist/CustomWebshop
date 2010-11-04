@@ -1,0 +1,99 @@
+/* Standaard driekoloms layout, fluid */
+
+body {
+	background:#FEFEFE;
+	text-align:center;
+	margin:0;
+	padding:0;
+	font:normal 0.8em/1.2em verdana,aria,sans-serif;
+	color:#666;
+	}
+a {
+	color:#333;
+	text-decoration:none;
+	border-bottom:1px dotted;
+	}
+a:hover {
+	border-bottom:1px solid;
+	color:#32AAE0;
+	}
+#sitecontainer {
+	position:relative;
+	text-align:left;
+	width:980px;
+        margin:0 auto;
+	background:#FFF url("../images/rightcolor_bg.gif") repeat-y top right;
+	}
+#container {
+	position:relative;
+	text-align:left;
+	width:100%;
+	background:url("../images/leftcolor_bg.gif") repeat-y top left;
+	}
+#header {
+	background:#FFF;
+	padding: 0px;
+	margin:0 auto;
+        width: 980px;
+	text-align:left;
+	color:#333;
+	}
+#header h1 {
+	font-size:200%;
+	}
+#columns {
+	position:relative;
+	margin:0;
+	padding:10px;
+	}
+#links {
+	position:relative;
+	top:-10px;
+	left:-10px;
+	float:left;
+	width:220px;  /* for IE5/WIN */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width:200px; /* actual value */
+	margin:0 0 -10px 0;
+	padding:10px;
+	background:#ECB9E8;
+	z-index:100;
+	}
+#rechts {
+	position:relative;
+	top:-10px;
+	right:-10px;
+	float:right;
+	width:240px;  /* for IE5/WIN */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width:229px; /* actual value */
+	margin:0 0 -10px 0;
+	padding:10px;
+        border:left: 1px solid #eee;
+	background:#fff;
+	z-index:99;
+	}
+#content {
+	position:relative;
+	padding:0 260px 0 230px;
+	}
+#content a {
+	color:#666;
+	}
+#content a:hover {
+	border-bottom:1px solid;
+	color:#9343B9;
+	}
+#footer {
+	position:relative;
+	top:1px;
+	background:#7A2875;
+	width:100%;
+	clear:both;
+	margin:0;
+	padding:1% 0;
+	text-align:center;
+	color:#CCC;
+	}

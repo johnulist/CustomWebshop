@@ -17,6 +17,18 @@
             
         }
 
+        function registreren()
+        {
+
+        }
+
+        function dashboard()
+        {
+
+        }
+
+
+
         /**
          * Beheer van klanten
          */
