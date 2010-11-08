@@ -20,14 +20,17 @@
         // Overige header tags
         print "<link rel='shortcut icon' href='/img/favicon.ico' type='image/ico' />\n";
         print $html->css('basic')."\n";
-        print $html->css('drie-960')."\n";
+        print $html->css('twee-960')."\n";
         print $html->css('default')."\n";
         print $html->css('formstables')."\n";
+        print $html->css('megamenu')."\n";
 	?>
 
 	<!-- javascript -->
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript">google.load("jquery", "1.3");</script>
+    
+    <?php echo $javascript->link('jquery.hoverIntent.minified.js'); ?>
 	<?php echo $scripts_for_layout; ?>
 </head>
 
@@ -41,13 +44,7 @@
 
     <div id="sitecontainer"><!-- sets background to white and creates full length leftcol-->
 
-        <div id="navcontainer">
-            <ul>
-                <li><?php echo $html->link('Dashboard','/gebruikers/dashboard/'); ?></li>
-                <li><?php echo $html->link('Beheer','/admin/bestellingen/'); ?></li>
-            </ul>
-            <div class="clear"></div>
-        </div>
+        <?php echo $this->element('megamenu'); ?>
 
         <div id="container"><!-- sets background to white and creates full length rightcol-->
 

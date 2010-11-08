@@ -15,7 +15,7 @@
 	{
 		public $components = array('Auth','Session');
 		public $helpers = array('Html','Form','Javascript','Text','Time', 'Session','Image','Number','Cw');
-		public $uses = array('Gebruiker','Instelling');
+		public $uses = array('Gebruiker','Instelling','Categorie');
 
         /**
          * CakePHP hook. Wordt aangeroepen aan het begin van ieder request,
@@ -171,6 +171,8 @@
             // extra parameters instellen
             $this->params['referer'] = $this->referer();
             $this->set('params', $this->params);
+
+            $this->set('nav_categorien', $this->Categorie->getNavigatieData());
 		}
 	}
 ?>

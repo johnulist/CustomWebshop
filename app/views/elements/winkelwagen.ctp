@@ -19,6 +19,6 @@
             }
         ?>
     </div>
-    <h3>Winkelwagen</h3>
+    <h3><?php echo $html->link('Winkelwagen','/winkelwagen/'); ?></h3>
     <div id="inhoud">Items: <?php echo $params['winkelwagen']['aantal']; ?> | Totaal: <?php echo $number->currency($params['winkelwagen']['totaal']); ?></div>
 </div>

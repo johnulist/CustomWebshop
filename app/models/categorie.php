@@ -19,5 +19,18 @@
                 'unique' => true
             )
         );
+
+        /**
+         * Laadt een array in met de benodigde info voor het
+         * opbouwen van de navigatie middels categorien
+         */
+        function getNavigatieData()
+        {
+            $data = $this->find('threaded', array(
+                'order' => 'Categorie.lft ASC'
+            ));
+
+            return $data;
+        }
     }
  ?>

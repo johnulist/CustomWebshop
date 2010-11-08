@@ -9,8 +9,8 @@
         );
 
         // Relaties met andere modellen
-        var $belongsTo = array('Merk');
-        var $hasMany = array('Productvariant' => array('foreignKey' => 'product_id'));
+        var $belongsTo = array('Merk','Attributenset');
+        var $hasMany = array('Productafbeelding' => array('foreignKey' => 'product_id'));
         var $hasAndBelongsToMany = array(
             'Categorie' => array(
                 'joinTable' => 'categorien_producten',
@@ -33,6 +33,31 @@
             }
 
             return $results;
+        }
+
+        /**
+         * Upload een afbeelding indien aanwezig en
+         * voegt deze toe aan het product.
+         * 
+         * @param array $data PHP array met uploaddata
+         */
+        function checkUpload($data)
+        {
+            if($bestandsnaam = $this->uploadBestand($data['Afbeelding']['data'], 'img/producten/'))
+            {
+                $this->Productafbeelding->create();
+                $afbeelding = array('Productafbeelding' => array(
+                    'bestandsnaam' => $bestandsnaam,
+                    'product_id' => $data['Product']['id']
+                ));
+                $this->Productafbeelding->save($afbeelding);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
  ?>

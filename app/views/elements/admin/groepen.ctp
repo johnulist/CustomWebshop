@@ -11,6 +11,8 @@
 		<li><?php echo $html->link($html->image('dashboard/groups/fileman48.png', array('alt' => 'Klanten')) . '<span>Klanten</span>', '/admin/gebruikers/', array('escape' => false)); ?></li>
 		<li><?php echo $html->link($html->image('dashboard/groups/news48.png', array('alt' => 'Producten')) . '<span>Producten</span>', '/admin/producten/', array('escape' => false)); ?></li>
 
+        <li><?php echo $html->link($html->image('dashboard/groups/news48.png', array('alt' => 'Productattributen')) . '<span>Attributensets</span>', '/admin/attributen/', array('escape' => false)); ?></li>
+
 		<li><?php echo $html->link($html->image('dashboard/groups/imgman48.gif', array('alt' => 'Merken')) . '<span>Merken</span>', '/admin/merken/', array('escape' => false)); ?></li>
 		<li><?php echo $html->link($html->image('dashboard/groups/videoman.png', array('alt' => 'Categori&euml;n')) . '<span>Categori&euml;n</span>', '/admin/categorien/', array('escape' => false)); ?></li>
 		<li><?php echo $html->link($html->image('dashboard/groups/statman48.png', array('alt' => 'Templates')) . '<span>Templates</span>', '/', array('escape' => false)); ?></li>

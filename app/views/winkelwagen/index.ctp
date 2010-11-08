@@ -6,5 +6,5 @@
 ?>
 <h1>Winkelwagen</h1>
 <?php
-    pr($params['winkelwagen']);
+    print $this->element('winkelwagen-inhoud');
 ?>

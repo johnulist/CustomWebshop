@@ -1,0 +1,86 @@
+#meganav {
+    border: 1px solid #DDD;
+    margin-bottom: 1em;
+}
+
+ul#megamenu {
+	margin: 0; padding: 0;
+	float:left;
+	width: 100%;
+	list-style: none;
+}
+ul#megamenu li {
+	float: left;
+	margin: 0; padding: 0;
+	position: relative; /*--Important--*/
+}
+ul#megamenu li a {
+	float: left;
+        padding: 1em;
+        text-decoration: none;
+        border-right: 1px solid #DDD;
+        border-left: 1px solid #EEE;
+        border-bottom: 0;
+}
+ul#megamenu li:hover a, ul#megamenu li a:hover { /*--Hover State--*/
+        background: #EEE;
+} 
+
+ul#megamenu li .sub {
+	position: absolute; /*--Important--*/
+	top: 38px; left: -1px;
+	z-index: 99999;
+	background: #EEE;
+        border: 1px solid #DDD;
+	padding: 20px 20px 20px;
+	float: left;
+	/*--Bottom right rounded corner--*/
+	-moz-border-radius-bottomright: 10px;
+	-khtml-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	/*--Bottom left rounded corner--*/
+	-moz-border-radius-bottomleft: 10px;
+	-khtml-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	display: none; /*--Hidden for those with js turned off--*/
+}
+ul#megamenu li .row { /*--If needed to break out into rows--*/
+	clear: both;
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+}
+ul#megamenu li .sub ul{
+	list-style: none;
+	margin: 0; padding: 0;
+	width: 150px;
+	float: left;
+}
+ul#megamenu .sub ul li {
+	width: 100%; /*--Override parent list item--*/
+	color: #fff;
+}
+ul#megamenu .sub ul li h2 { /*--Sub nav heading style--*/
+	padding: 0;  margin: 0;
+	font-size: 1.3em;
+	font-weight: normal;
+}
+ul#megamenu .sub ul li h2 a { /*--Sub nav heading link style--*/
+	padding: 5px 0;
+	background-image: none;
+	color: #32AAE0;
+}
+ul#megamenu .sub ul li a {
+	float: none;
+	text-indent: 0; /*--Override text-indent from parent list item--*/
+	height: auto; /*--Override height from parent list item--*/
+	background: url(navlist_arrow.png) no-repeat 5px 12px;
+	padding: 7px 5px 7px 15px;
+	display: block;
+	text-decoration: none;
+	color: #333;
+}
+ul#megamenu .sub ul li a:hover {
+	color: #ddd;
+	background-position: 5px 12px ;/*--Override background position--*/
+}

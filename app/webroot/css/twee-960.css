@@ -61,23 +61,11 @@ a:hover {
 	z-index:100;
 	}
 #rechts {
-	position:relative;
-	top: 0px;
-	right:-10px;
-	float:right;
-	width:240px;  /* for IE5/WIN */
-	voice-family: "\"}\"";
-	voice-family:inherit;
-	width:229px; /* actual value */
-	margin:0 0 -10px 0;
-	padding:10px;
-        border:left: 1px solid #eee;
-	background:#fff;
-	z-index:99;
+	display:none;
 	}
 #content {
 	position:relative;
-	padding:0 260px 0 230px;
+	padding:0 0 0 230px;
 	}
 #content a {
 	color:#666;

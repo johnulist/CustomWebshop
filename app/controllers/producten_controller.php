@@ -7,6 +7,42 @@
         var $uses = array('Product');
         var $name = 'Producten';
 
+        // speciaal voor producten:
+        public $paginate = array(
+            'Product' => array(
+                'limit' => 2,
+                'contain' => array('Merk','Productafbeelding'),
+                'order' => 'Product.verkoopprijs ASC',
+                'joins' => array(
+                    0 => array(
+                        'table' => 'categorien_producten',
+                        'alias' => 'CategorieProduct',
+                        'type' => 'inner',
+                        'conditions'=> array('CategorieProduct.product_id = Product.id')
+                    ),
+                    1 => array(
+                        'table' => 'categorien',
+                        'alias' => 'Categorie',
+                        'type' => 'inner',
+                        'conditions'=> array(
+                            'Categorie.id = CategorieProduct.categorie_id',
+                            'Categorie.id' => 1
+                        )
+                    )
+                )
+            )
+        );
+
+        public $sortOrders = array(
+            'prijs_oplopend' => array('label' => 'Prijs oplopend', 'query' => 'Product.verkoopprijs ASC'),
+            'prijs_aflopend' => array('label' => 'Prijs aflopend', 'query' => 'Product.verkoopprijs DESC'),
+            'merk_oplopend'  => array('label' => 'Merk oplopend',  'query' => 'Merk.naam ASC'),
+            'merk_aflopend'  => array('label' => 'Merk aflopend',  'query' => 'Merk.naam DESC')
+        );
+
+        public $sortOrder = 'prijs_oplopend';
+
+
         function beforeFilter()
         {
             parent::beforeFilter();
@@ -20,7 +56,36 @@
          */
         function toon_via_slug()
         {
+            $parent_id = null;
+            foreach($this->params['pass'] as $slug)
+            {
+                $categorie = $this->Categorie->find('first', array(
+                    'conditions' => array(
+                        'Categorie.parent_id' => $parent_id,
+                        'Categorie.slug' => $slug
+                    )
+                ));
 
+                if(!empty($categorie))
+                {
+                    $parent_id = $categorie["Categorie"]['id'];
+                }
+            }
+
+            // Sort aanpassen indien van toepassing
+            if(isset($this->params['form']['sort']) && array_key_exists($this->params['form']['sort'], $this->sortOrders))
+            {
+                $this->sortOrder = $this->params['form']['sort'];
+            }
+
+            // Join aanpassen
+            $this->paginate['Product']['order'] = $this->sortOrders[$this->sortOrder]['query'];
+            $this->paginate['Product']['joins'][1]['conditions']['Categorie.id'] = $parent_id;
+            $this->data = $this->paginate('Product');
+            
+            $this->set('categorie',  $categorie);
+            $this->set('sortOrders', $this->sortOrders);
+            $this->set('sortOrder',  $this->sortOrder);
         }
 
         /**
@@ -30,16 +95,18 @@
          */
         function aanbiedingen()
         {
-            $this->paginate = array(
+            $this->paginate['Product'] = array(
                 'conditions' => array(
                     'Product.aanbiedingsprijs IS NOT NULL',
                     'Product.voorraad >' => 0,
                     'Product.beschikbaar' => 1
                 ),
+                'contain' => array('Merk','Productafbeelding'),
                 'order' => 'Product.aanbiedingsprijs ASC',
                 'limit' => 9
             );
-            $this->data = $this->Paginate('Product');
+
+            $this->data = $this->paginate('Product');
         }
 
         /**
@@ -95,7 +162,7 @@
                 $this->Product->create();
                 $this->data['Product']['id'] = $product_id;
                 
-				if($this->Product->save($this->data))
+				if($this->Product->save($this->data) && $this->Product->checkUpload($this->data))
                 {
                     $this->Session->setFlash('Het product is succesvol toegevoegd', 'flash_success');
                     $this->redirect('/admin/producten/');
@@ -107,14 +174,42 @@
             }
             elseif(!is_null($product_id))
             {
-                $this->Product->contain('Categorie');
+                $this->Product->contain('Categorie','Productafbeelding');
                 $this->data = $this->Product->read(null, $product_id);
             }
 
             // lijst met merken en categorien voor de dropdown
-            $merken     = $this->Product->Merk->find('list', array('order' => 'Merk.naam ASC'));
-            $categorien = $this->Product->Categorie->getSelectList();
-            $this->set(compact('merken','categorien'));
+            $merken         = $this->Product->Merk->find('list', array('order' => 'Merk.naam ASC'));
+            $attributensets = $this->Product->Attributenset->find('list', array('order' => 'Attributenset.naam ASC'));
+            $categorien     = $this->Product->Categorie->getSelectList();
+            $this->set(compact('merken','categorien','attributensets'));
+        }
+
+        /**
+         * Verwijdert een afbeelding en het bestand op de server.
+         * 
+         * @param integer $afbeelding_id Het ID van de te verwijderen afbeelding
+         */
+        function admin_afbeelding_verwijderen($afbeelding_id)
+        {
+            $afbeelding = $this->Product->Productafbeelding->read(null, $afbeelding_id);
+            if($this->Product->Productafbeelding->delete($afbeelding_id))
+            {
+                if($this->Product->verwijderBestand($afbeelding['Productafbeelding']['bestandsnaam']))
+                {
+                    $this->Session->setFlash("De afbeelding is verwijderd", "flash_succes");
+                }
+                else
+                {
+                    $this->Session->setFlash("De afbeelding is verwijderd uit de database, maar niet van de server", "flash_error");
+                }
+            }
+            else
+            {
+                $this->Session->setFlash("De afbeelding kon niet worden verwijderd", "flash_error");
+            }
+            
+            $this->redirect('/admin/producten/bewerken/' . $afbeelding['Productafbeelding']['product_id'] . '#tab_afbeeldingen');
         }
 
         /**

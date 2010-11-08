@@ -14,6 +14,7 @@
 <ul id="tabs">
 	<li class="firsttab"></li>
 	<li><a href="#tab_algemeen">Algemeen</a></li>
+    <li><a href="#tab_attributen">Attributen</a></li>
     <li><a href="#tab_prijs">Prijs &amp; voorraad</a></li>
 	<li><a href="#tab_seo">SEO</a></li>
     <li><a href="#tab_afbeeldingen">Afbeeldingen</a></li>
@@ -25,7 +26,7 @@
 	echo $javascript->link('jquery.tabs.js', array('inline' => false));
 
     // Begin formulier
-    echo $form->create('Product', array('class' => 'blok-dataform', 'name' => 'formulier', 'url' => array('action' => $this->action, 'controller' => 'producten', 'prefix' => 'admin')));
+    echo $form->create('Product', array('class' => 'blok-dataform', 'name' => 'formulier', 'url' => array('action' => $this->action, 'controller' => 'producten', 'prefix' => 'admin'), 'type' => 'file'));
     echo '<div class="tab_container">';
 
     // Tab algemeen
@@ -36,6 +37,11 @@
     echo $form->input('Product.omschrijving_lang');
     echo $form->input('Product.merk_id', array('options' => $merken));
     echo $form->input('Categorie', array('type' => 'select', 'multiple' => true, 'options' => $categorien, 'escape' => false));
+    echo '</div>';
+
+    // Tab attributen
+    echo '<div id="tab_attributen" class="tab_content">';
+    echo $form->input('Product.attributenset_id', array('options' => $attributensets, 'empty' => __('- kies een set -', true)));
     echo '</div>';
 
     // Tab prijs en voorraad
@@ -57,6 +63,18 @@
 
     // Tab afbeeldingen
     echo '<div id="tab_afbeeldingen" class="tab_content">';
+    echo $form->input('Afbeelding.data', array('label' => 'Upload een afbeelding', 'type' => 'file'));
+
+    if(isset($this->data['Productafbeelding']))
+    {
+        echo '<div class="input afbeelding">';
+        foreach($this->data['Productafbeelding'] as $afbeelding)
+        {
+            echo $html->link($image->resize($afbeelding['bestandsnaam'], 120, 90), '/admin/producten/afbeelding_verwijderen/' . $afbeelding['id'], array('escape' => false), 'Weet je zeker dat je deze afbeelding wilt verwijderen?');
+        }
+        echo '</div>';
+    }
+    
     echo '</div>';
 
     // Einde formulier

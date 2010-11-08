@@ -64,7 +64,7 @@ class SlugBehavior extends ModelBehavior {
             }
 
             // Find out if such a slug exists
-            $conditions = "{$model->name}.{$this->settings[$model->name]['slug']} = '$slug'";
+            $conditions = array("{$model->name}.{$this->settings[$model->name]['slug']} = '$slug'");
 
             if (!empty($model->{$model->primaryKey})) {
                 $conditions[$model->name . '.' . $model->primaryKey] = '!= ' . $model->{$model->primaryKey};

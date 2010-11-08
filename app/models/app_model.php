@@ -145,6 +145,71 @@
             return date("Y-m-d H:i:s", $time);
         }
 
+        /**
+		 * Upload een bestand naar de server
+		 *
+		 * De functie zoekt naar een geschikte bestandsnaam voor het
+		 * te uploaden bestand en probeert deze vervolgens te uploaden
+		 * naar de opgegeven map.
+		 *
+		 * De returnwaarde kan gebruikt worden in een data-array.
+		 *
+		 * @return mixed De naam van het bestand op de server of null
+		 */
+ 		function uploadBestand($bestand, $pad)
+		{
+			if(is_uploaded_file(@$bestand['tmp_name']))
+			{
+				$root = ROOT . DS . 'app' . DS . 'webroot' . DS;
+				$naam = $this->maakVeilig($bestand['name'], $root . $pad);
+
+				if(move_uploaded_file($bestand['tmp_name'], $root . $pad . $naam))
+				{
+					// afbeeldingen hoeven niet de 'img' map te verwijzen, dit doet de resizer al!
+					$pad = str_replace('img/','', $pad);
+					return $pad . $naam;
+				}
+			}
+
+			return null;
+		}
+
+        function verwijderBestand($naam)
+        {
+            $root = ROOT . DS . 'app' . DS . 'webroot' . DS;
+            if(is_file($root . $naam))
+            {
+                return unlink($root . $naam);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+		/**
+		 * Zoekt een ongebruikte bestandsnaam
+		 *
+		 * Controleert of een bestandsnaam al bestaat, en verandert
+		 * de meegegeven bestandsnaam totdat er nog geen bestand op de
+		 * server aanwezig is met de betreffende naam.
+		 *
+		 * @return De aangepaste bestandsnaam
+		 */
+		function maakveilig($bestandsnaam, $pad)
+		{
+			if(file_exists($pad.$bestandsnaam))
+			{
+				$i = 1;
+				while(file_exists($pad . $i . '_' . $bestandsnaam))
+				{
+					$i++;
+				}
+				$bestandsnaam = $i . '_' . $bestandsnaam;
+			}
+
+			return $bestandsnaam;
+		}
     }
 ?>
 

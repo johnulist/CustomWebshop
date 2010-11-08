@@ -43,6 +43,11 @@
     clear: both;
     padding: 20px 0 5px;
 }
+#winkelwagen h3 a {
+    border: 0;
+    color: inherit;
+    font-weight: inherit;
+}
 
 #winkelwagen #inhoud {
     float: right;
@@ -78,4 +83,54 @@
 
 #debug {
     margin-top: 200px;
+}
+
+.corner-all {
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#listcontrols {
+    border: 1px solid #DDD;
+}
+
+#sort {
+    width: 250px;
+}
+#sort label {
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px 1em 6px;
+}
+
+#sort select {
+    font-size: 12px;
+    clear: none;
+    margin: 8px 1em 8px 0;
+    float: left;    
+}
+#sort option {
+    font-size: 12px;
+}
+#paging {
+    float: right;
+    width: 200px;
+    overflow: hidden;
+    font-size: 12px;
+    text-align: right;
+    padding: 10px 1em 6px;
+}
+
+#paging a {
+    border-bottom: none;
+}
+#paging a.next {}
+#paging a.prev {}
+#paging span.current {
+    background: #eee;
+    padding: 2px 4px;
+    border: 1px solid #777;
 }

@@ -6,7 +6,7 @@ html, body 	{ height: 100%; margin: 0 0 1px; padding: 0; }
 body 		{ text-align: center; background: #fff;  font-family: arial,verdana; font-size: 1em; }
 .clear 		{ clear: both; }
 #admincontainer	{ width: 950px; margin: 0 auto; text-align: left; clear: both; background: #FFF; }
-
+a img           { border: 0; }
 #container {
 	margin: auto 0;
 	width: auto;
@@ -281,6 +281,9 @@ button.save span    { background-image:url(../img/dashboard/save_btn_icon.gif); 
 .blok-dataform .input .checkbox label		{ background: #FFFFFF; width: auto; line-height: 14px; padding: 9px 4px 9px 8px; }
 .blok-dataform .input .checkbox input		{ float: left; margin: 10px 0 8px 8px;}
 
+.blok-dataform .afbeelding {}
+.blok-dataform .afbeelding a { display: block; float: left; height: 92px; width: 122px; border: 10px solid #F5F5F5; }
+.blok-dataform .afbeelding a img { border: 1px solid #DDD; }
 
 /* inputvelden algemeen */
 .blok-dataform .input input[type=text],
@@ -290,6 +293,8 @@ button.save span    { background-image:url(../img/dashboard/save_btn_icon.gif); 
 .blok-dataform .input input[type=text].currency		{ width: 100px; }
 .blok-dataform .submit 								{ margin-top: 10px; }
 
+.blok-dataform .divider { background: #F6F6F6; padding-left: 1em; height: 38px; }
+.blok-dataform .divider label 				{ width: 100%; background: #F6F6F6; text-align: left; padding: 9px 0 9px 0; line-height: 20px; }
 /* lijsten met data */
 table.lijst		{ font-size: 0.8em; border-collapse: collapse; margin: 0; border: 0;}
 table.lijst td  { border-bottom: 1px solid #ccc; }
