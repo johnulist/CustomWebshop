@@ -80,3 +80,17 @@
     // Einde formulier
     echo '</div>';
 ?>
+
+
+<script type="text/javascript">
+    tinyMCE.init({
+        theme : "advanced",
+        mode : "textareas",
+        plugins : "ibrowser",
+        content_css : "<?php echo $html->url('/css/default.css'); ?>",
+        theme_advanced_toolbar_location : 'top',
+        theme_advanced_buttons3_add : "ibrowser",
+        theme_advanced_toolbar_align : "left",
+        convert_urls : false
+    });
+</script>

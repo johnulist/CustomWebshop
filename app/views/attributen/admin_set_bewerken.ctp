@@ -15,20 +15,23 @@
 <ul id="tabs"></ul>
 
 <?php
-    echo $form->create('Attributenset', array('class' => 'blok-dataform', 'url' => array('action' => 'set_bewerken', 'controller' => 'attributen', 'prefix' => 'admin')));
+    echo $form->create('Attributenset', array('class' => 'blok-dataform', 'name' => 'formulier', 'url' => array('action' => 'set_bewerken', 'controller' => 'attributen', 'prefix' => 'admin')));
     echo $form->hidden('Attributenset.id');
     echo $form->input('Attributenset.naam', array('label' => 'Naam set'));
 
-    foreach($this->data['Attribuut'] as $i => $attribuut)
+    if(!empty($this->data))
     {
-        echo $form->hidden("Attribuut.$i.id");
-        echo $form->hidden("Attribuut.$i.naam");
-        echo $form->input("Attribuut.$i.opties", array('label' => $attribuut['naam']));
+        foreach($this->data['Attribuut'] as $i => $attribuut)
+        {
+            echo $form->hidden("Attribuut.$i.id");
+            echo $form->hidden("Attribuut.$i.naam");
+            echo $form->input("Attribuut.$i.opties", array('label' => $attribuut['naam']));
+        }
     }
 
     echo '<div id="nieuw_attr" class="input divider"><label><a href="javascript:nieuw_attr()">Attribuut toevoegen</a></label></div>';
 
-    echo $form->end('Opslaan');
+    echo $form->end();
 ?>
 
 <script type="text/javascript">

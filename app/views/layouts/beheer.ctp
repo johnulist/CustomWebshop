@@ -74,8 +74,7 @@
         </div>
     </div>
 
-	<div id="debug"><?php pr($params); ?></div>
-    <?php echo $this->element('sql_dump'); ?>
+	<?php echo $this->element('sql_dump'); ?>
 
 </body>
 
