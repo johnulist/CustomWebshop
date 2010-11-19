@@ -1,3 +1,5 @@
+@import url("fancybox.css");
+
 /**
  Grid size 960px breed
  Kolom 1:
@@ -133,4 +135,126 @@
     background: #eee;
     padding: 2px 4px;
     border: 1px solid #777;
+}
+
+/* Categorie filter element */
+ul#pli-path a, ul#pli-merken a, ul#pli-children a  {
+    font-weight: normal;
+    color: #333;
+}
+ul#pli-path li {
+    list-style-type: none;
+    padding-left: 20px;
+    background: url('../img/default/pijl_neer.png') 5px 10px no-repeat;
+}
+ul#pli-path li.last a {
+    text-decoration: underline;
+}
+ul#pli-children li {
+    list-style-type: none;
+    padding-left: 32px;
+    background: url('../img/default/pijl_rechts.png') 20px 10px no-repeat;
+}
+ul#pli-children {
+    margin-bottom: 1em;
+}
+ul#pli-merken li {
+    list-style-type: none;
+    padding-left: 20px;
+    background: url('../img/default/pijl_rechts.png') 8px 10px no-repeat;    
+}
+
+#categoriefilter h3 {
+    font-size: 1.2em;
+    padding: 4px 0;
+}
+
+
+/* Lijst met producten */
+h1#pli-titel {
+    font-size: 1.4em;
+    float: left;
+    margin: 20px 10px 20px 0;
+}
+
+h2#prod_count {
+    float: left;
+    font-size: 1.2em;
+    margin: 22px 0;
+}
+
+.product-list-item {
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    clear: both;
+}
+
+.pli-afbeelding {
+    float: left;
+    width: 40px;
+    margin: 5px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    height: 40px;
+}
+
+.pli-van-prijs {
+    text-decoration: line-through;
+}
+
+.pli-btn-bestel, .pli-btn-details, .pli-van-prijs, .pli-voor-prijs {
+    float: right;
+    margin: 5px;
+    line-height: 40px;
+}
+.pli-titel {
+    float: left;
+    margin: 5px;
+    line-height: 40px;
+}
+
+.list-item-odd {
+    background: #fafafa;
+}
+
+/** Productdetails **/
+#product-titel {
+    font-size: 1.4em;
+}
+#product-afbeelding {
+    width: 288px;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #aaa;
+}
+#product-afbeelding-meer {
+    padding: 3px;
+}
+#product-afbeelding-meer img {
+    margin: 4px;
+}
+#product-linkerkolom {
+    float: left;
+    width: 300px;
+}
+#product-rechterkolom {
+    margin-left: 320px;
+}
+#product-details p {
+    margin-bottom: 1em;
+}
+#product-voorraad {
+    font-weight: bold;
+}
+#product-prijs {
+    font-size: 2em;
+    color: #2E9F27;
+    margin: 1em 0;
+}
+#product-breed {
+    clear: both;
+    padding-top: 1em;
+}
+#product-bestel div {
+    clear: none;
 }

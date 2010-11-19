@@ -1,0 +1,2 @@
+<h1>Bestelling ontvangen</h1>
+<p>Bedankt voor uw bestelling. Er is een bevestigingsmail verstuurd naar <?php echo $this->data['Gebruiker']['emailadres']; ?> met daarin de details van de bestelling.</p>

@@ -10,7 +10,7 @@
         // speciaal voor producten:
         public $paginate = array(
             'Product' => array(
-                'limit' => 2,
+                'limit' => 20,
                 'contain' => array('Merk','Productafbeelding'),
                 'order' => 'Product.verkoopprijs ASC',
                 'joins' => array(
@@ -46,7 +46,7 @@
         function beforeFilter()
         {
             parent::beforeFilter();
-            $this->Auth->allow('toon_via_slug');
+            $this->Auth->allow('toon_via_slug','aanbiedingen','details','bestellen');
         }
 
         /**
@@ -82,8 +82,17 @@
             $this->paginate['Product']['order'] = $this->sortOrders[$this->sortOrder]['query'];
             $this->paginate['Product']['joins'][1]['conditions']['Categorie.id'] = $parent_id;
             $this->data = $this->paginate('Product');
+
+            // Pad naar categorie
+            $path = $this->Categorie->getPath($parent_id);
+            $merken = $this->Categorie->getMerken($parent_id);
+            $children = $this->Categorie->children($parent_id, true);
+            $this->params['linkerblokken'][] = 'categoriefilter'; 
             
+            $this->set('path', $path);
             $this->set('categorie',  $categorie);
+            $this->set('merken', $merken);
+            $this->set('children', $children);
             $this->set('sortOrders', $this->sortOrders);
             $this->set('sortOrder',  $this->sortOrder);
         }
@@ -120,11 +129,11 @@
             // proberen het product toe te voegen
             if($this->_plaatsInWinkelwagen($product_id, $variant_id))
             {
-                $this->Session->setFlash(__('SUCCES_TOEVOEGEN_WINKELWAGEN'), 'flash_succes');
+                $this->Session->setFlash(__('SUCCES_TOEVOEGEN_WINKELWAGEN', true), 'flash_succes');
             }
             else
             {
-                $this->Session->setFlash(__('ERROR_TOEVOEGEN_WINKELWAGEN'), 'flash_error');
+                $this->Session->setFlash(__('ERROR_TOEVOEGEN_WINKELWAGEN', true), 'flash_error');
             }
 
             $this->redirect('/winkelwagen/');
@@ -138,6 +147,7 @@
          */
         function details($slug, $product_id)
         {
+            $this->Product->contain(array('Productafbeelding','Merk','Categorie'));
             $this->data = $this->Product->read(null, $product_id);
         }
 

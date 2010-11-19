@@ -29,6 +29,7 @@
                 if (isset($val['Product']))
                 {
                     $results[$key]['Product']['prijs'] = (empty($val['Product']['aanbiedingsprijs']) ? $val['Product']['verkoopprijs'] : $val['Product']['aanbiedingsprijs']);
+                    $results[$key]['Product']['btw_bedrag'] = $results[$key]['Product']['prijs'] * ($val['Product']['btw'] / 100);
                 }
             }
 

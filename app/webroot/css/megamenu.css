@@ -1,6 +1,6 @@
 #meganav {
     border: 1px solid #DDD;
-    margin-bottom: 1em;
+    margin: 1em 0;
 }
 
 ul#megamenu {
@@ -81,6 +81,6 @@ ul#megamenu .sub ul li a {
 	color: #333;
 }
 ul#megamenu .sub ul li a:hover {
-	color: #ddd;
+	color: #B743B9;
 	background-position: 5px 12px ;/*--Override background position--*/
 }

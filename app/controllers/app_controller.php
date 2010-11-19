@@ -29,7 +29,8 @@
                 'isBeheerder' => false,
                 'locale' => 'NLD',
                 'valuta' => 'EUR',
-                'winkelwagen' => array()
+                'winkelwagen' => array(),
+                'linkerblokken' => array()                
             ));
 
             // Winkelwagen laden, uit sessie of default
@@ -105,9 +106,9 @@
             $this->params['isIngelogd'] = !empty($gebruiker);
         }
 
-        function _laadWinkelwagen()
+        function _laadWinkelwagen($reset = false)
         {
-            if($this->Session->check('winkelwagen'))
+            if(!$reset && $this->Session->check('winkelwagen'))
 			{
 				$this->params['winkelwagen'] = $this->Session->read('winkelwagen');
 			}
@@ -117,8 +118,10 @@
 				$this->params['winkelwagen'] = array(
 					'aantal'    => 0,
 					'totaal'    => 0,
+                    'btw'       => 0,
 					'ex'        => 0,
-					'verzendkosten' => 0,
+					'levering' => array(),
+                    'betaling'  => array(),
 					'producten' => array()
 				);
 
@@ -140,9 +143,10 @@
             $product = $this->Product->read(null, $product_id);
 
             // Update van prijs en aantal
-            $this->params['winkelwagen']['aantal'] = $this->params['winkelwagen']['aantal'] + 1;
-            $this->params['winkelwagen']['totaal'] = $this->params['winkelwagen']['totaal'] + $product['Product']['prijs'];
-
+            $this->params['winkelwagen']['aantal']      = $this->params['winkelwagen']['aantal'] + 1;
+            $this->params['winkelwagen']['totaal']      = $this->params['winkelwagen']['totaal'] + $product['Product']['prijs'];
+            $this->params['winkelwagen']['btw']         = $this->params['winkelwagen']['btw'] + $product['Product']['btw_bedrag'];
+                        
             // Locatie van toevoegen bepalen (nieuw of extra?)
             if(array_key_exists($product_id, $this->params['winkelwagen']['producten']))
             {

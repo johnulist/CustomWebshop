@@ -23,6 +23,9 @@
 
 .clear {
     clear: both;
+    padding: 0;
+    margin: 0;
+    border: 0;
     line-height: 0px;
 }
 
@@ -64,7 +67,7 @@ h4 {
 	font-weight: normal;
 }
 ul, li {
-	margin: 0 12px;
+	margin: 0;
 }
 
 /** Tables **/
@@ -321,6 +324,7 @@ div.actions ul li a:hover {
 	text-decoration: underline;
 }
 
+a.cta,
 input[type=submit],
 div.actions ul li a,
 td.actions a {

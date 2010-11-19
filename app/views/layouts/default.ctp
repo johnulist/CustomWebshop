@@ -37,7 +37,7 @@
 <body>
 
     <div id="header">
-        <h1 id="logo"><?php echo $html->link('[Naam Webshop]','/'); ?></h1>
+        <h1 id="logo"><?php echo $html->link($params['siteNaam'],'/'); ?></h1>
         <?php echo $this->element('winkelwagen'); ?>
         <div class="clear"></div>
     </div><!-- end header -->
@@ -51,7 +51,12 @@
             <div id="columns"><!-- begin main content area -->
 
                 <div id="links"><!-- begin leftcol -->
-                    <h2>Opties</h2>
+                    <?php
+                        foreach($params['linkerblokken'] as $element)
+                        {
+                            echo $this->element($element);
+                        }
+                    ?>
                 </div><!-- end leftcol -->
 
                 <div id="rechts"><!-- begin rightcol -->
@@ -63,22 +68,18 @@
                     <div id="flash"><?php echo $session->flash(); ?></div>
 
                     <?php echo $content_for_layout; ?>
-
+                    <div class="clear"></div>
                 </div><!-- end centercol -->
-
+                <div class="clear"></div>
             </div><!-- end columns area -->
 
             <div id="footer"><!-- begin footer -->
-                <p>This is the footer</p>
+                <p>&copy; Custom Webwinkel 2010</p>
             </div><!-- end footer -->
 
         </div><!-- end container -->
 
     </div><!-- end sitecontainer -->
-
-    <div id="debug"><h2>Debugging</h2><?php pr($params); ?></div>
-	<?php echo $this->element('sql_dump'); ?>
-    <?php /* @todo google analytics */ ?>
 </body>
 
 </html>

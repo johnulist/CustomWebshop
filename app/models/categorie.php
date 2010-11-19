@@ -32,5 +32,18 @@
 
             return $data;
         }
+        
+        function getMerken($categorie_id)
+        {
+            $merk_ids = $this->query("SELECT distinct(merk_id) FROM producten p, categorien_producten pc WHERE p.id = pc.product_id AND pc.categorie_id IN (SELECT id FROM `categorien` WHERE lft > 2 AND rght < 9)");
+            $merken   = $this->Product->Merk->find('list', array(
+                'conditions' => array(
+                    'Merk.id' => Set::extract('/p/merk_id', $merk_ids)
+                ),
+                'fields' => array('slug','naam')
+            ));
+            
+            return $merken;
+        }
     }
  ?>

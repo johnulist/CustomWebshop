@@ -7,4 +7,5 @@
 <h1>Winkelwagen</h1>
 <?php
     print $this->element('winkelwagen-inhoud');
+    echo $html->link('Afrekenen', '/winkelwagen/verzenden/', array('class' => 'cta'));
 ?>
