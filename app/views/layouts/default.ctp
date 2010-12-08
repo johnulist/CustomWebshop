@@ -22,6 +22,7 @@
         print $html->css('basic')."\n";
         print $html->css('twee-960')."\n";
         print $html->css('default')."\n";
+        print $html->css('colorbox')."\n";
         print $html->css('formstables')."\n";
         print $html->css('megamenu')."\n";
 	?>
@@ -65,7 +66,7 @@
 
                 <div id="content"><!-- begin centercol -->
 
-                    <div id="flash"><?php echo $session->flash(); ?></div>
+                    <div id="flash"><?php echo $this->Session->flash(); ?></div>
 
                     <?php echo $content_for_layout; ?>
                     <div class="clear"></div>
@@ -80,6 +81,14 @@
         </div><!-- end container -->
 
     </div><!-- end sitecontainer -->
+
+
+	<?php echo $this->element('sql_dump'); ?>
+
+    <?php
+        echo $analytics = Configure::read('Site.analytics');
+    ?>
+
 </body>
 
 </html>

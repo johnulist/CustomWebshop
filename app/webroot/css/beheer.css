@@ -7,6 +7,7 @@ body 		{ text-align: center; background: #fff;  font-family: arial,verdana; font
 .clear 		{ clear: both; }
 #admincontainer	{ width: 950px; margin: 0 auto; text-align: left; clear: both; background: #FFF; }
 a img           { border: 0; }
+a               { color: #4A86EF; }
 #container {
 	margin: auto 0;
 	width: auto;
@@ -33,14 +34,14 @@ a img           { border: 0; }
 
 #links {
 	float: left;
-	width: 30em;
+	width: 212px;
 	margin-left: 1em;
 	margin-top: 1em;
 	position: relative;
 }
 
 #content {
-	margin-left: 31em;
+	margin-left: 232px;
 	float:none;
 	width:auto;
 	position:static;
@@ -89,6 +90,26 @@ a img           { border: 0; }
 	display: block;
 }
 
+.dashboard {
+    background-color: #fff;
+    text-align: center;
+}
+
+.dashboard .inkomstencount, .dashboard .bestelcount, .dashboard .factuurcount {
+    border: 2px solid #FF7200;
+    padding: 20px;
+    margin: 10px;
+    float: left;
+    width: 200px;
+}
+.dashboard .number { font-size: 1.4em; color: #FF7200; display: block; }
+.graph {
+    clear: both;
+    width: 770px;
+    margin: 10px;
+    border: 1px solid #FF7200;
+}
+
 .groepen ul {
 	margin: 0;
 	padding: 0;
@@ -97,26 +118,21 @@ a img           { border: 0; }
 .groepen li {
 	list-style-type: none;
 	display: block;
-	float: left;
-	margin: 10px;
+}
+
+.groepen li a img {
+        width: 24px;
+        margin-right: 10px;
+        height: 24px;
 }
 
 .groepen li a {
-	padding: 10px 0px 0;
+	padding: 5px 10px;
+        line-height: 32px;
+        vertical-align: middle;
 	color: #4B4B4B;
 	text-decoration: none;
-	text-align: center;
 	display: block;
-}
-
-.groepen li a span {
-	display: block;
-	line-height: 16px;
-	padding-top: 4px;
-	font-size: 12px;
-	font-weight: bold;
-	width: 100px;
-	text-align: center;
 }
 
 .groepen li a:hover {
@@ -136,7 +152,9 @@ a img           { border: 0; }
 	margin-bottom: 1em;
 }
 
-
+tr.over-tijd td {
+    
+}
 
 .block {
 	border: 1px solid #cccccc;
@@ -281,9 +299,10 @@ button.save span    { background-image:url(../img/dashboard/save_btn_icon.gif); 
 .blok-dataform .input .checkbox label		{ background: #FFFFFF; width: auto; line-height: 14px; padding: 9px 4px 9px 8px; }
 .blok-dataform .input .checkbox input		{ float: left; margin: 10px 0 8px 8px;}
 
-.blok-dataform .afbeelding {}
-.blok-dataform .afbeelding a { display: block; float: left; height: 92px; width: 122px; border: 10px solid #F5F5F5; }
+.blok-dataform .afbeelding { display: block; float: left; width: 202px; border: 10px solid #F5F5F5; }
 .blok-dataform .afbeelding a img { border: 1px solid #DDD; }
+.blok-dataform .afbeelding a.del { color: #333; float: right; font-size: .8em; }
+.blok-dataform .afbeelding a.hoofd { color: #333; float: left; font-size: .8em;  }
 
 /* inputvelden algemeen */
 .blok-dataform .input input[type=text],
@@ -393,4 +412,79 @@ th, td {
 td, label {
     color:#65626E;
     line-height:1.5em;
+}
+
+
+/**
+ Bestelling bekijken
+ */
+#bestelling-overzicht {
+    padding: 20px;
+}
+
+#bd-summary {
+    float: right;
+    margin: 1em 0;
+}
+
+#bd-betaling {
+    float: left;
+    margin: 1em 0;
+}
+
+#bd-levering {
+    clear: left;
+    margin: 1em 0;
+    float: left;
+}
+
+#winkelwagen-inhoud {
+    border-spacing: 0;
+}
+
+#winkelwagen-inhoud .odd {
+    background: #f7f7f7;
+}
+
+input[type=submit] {
+	display: inline;
+	font-size: 110%;
+	width: auto;
+}
+form .submit input[type=submit] {
+	background:#62af56;
+	background: -webkit-gradient(linear, left top, left bottom, from(#a8ea9c), to(#62af56));
+	background-image: -moz-linear-gradient(top, #a8ea9c, #62af56);
+	border-color: #2d6324;
+	color: #000;
+	text-shadow: #8cee7c 0px 1px 0px;
+}
+form .submit input[type=submit]:hover {
+	background:#4ca83d;
+	background: -webkit-gradient(linear, left top, left bottom, from(#85e573), to(#4ca83d));
+	background-image: -moz-linear-gradient(top, #85e573, #4ca83d);
+}
+a.cta,
+input[type=submit],
+div.actions ul li a,
+td.actions a {
+	font-weight:normal;
+	padding: 4px 8px;
+	background:#e6e49f;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1d4), to(#e6e49f));
+	background-image: -moz-linear-gradient(top, #f1f1d4, #e6e49f);
+	color:#333;
+	border:1px solid #aaac62;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border-radius:8px;
+	text-decoration:none;
+	text-shadow: #fff 0px 1px 0px;
+	min-width: 0;
+}
+input[type=submit]:hover,
+div.actions ul li a:hover,
+td.actions a:hover {
+	background: #f0f09a;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f7f7e1), to(#eeeca9));
 }

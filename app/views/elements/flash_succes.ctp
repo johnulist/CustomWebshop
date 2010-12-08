@@ -4,4 +4,8 @@
 /* @var $html HtmlHelper */
 /* @var $javascript JavascriptHelper */
 ?>
-SUCCES
+<div class="flash flash_succes">
+<?php
+    echo $message;
+?>
+</div>

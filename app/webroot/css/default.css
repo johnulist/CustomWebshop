@@ -12,6 +12,9 @@
     line-height: 80px;
     vertical-align: middle;
     margin: 0;
+
+    background: #fff url('../img/shoplogo.png') no-repeat;
+    text-indent: -9999px;
 }
 
 #sitecontainer {
@@ -28,10 +31,10 @@
 }
 
 #winkelwagen {
-    width: 199px;
+    width: 209px;
     float: right;
     border-left: 1px solid #EEE;
-    padding-left: 50px;
+    padding-left: 40px;
     background: #fff url('../img/default/winkelwagen_48x48.png') 20px 45px no-repeat;
 }
 
@@ -258,3 +261,12 @@ h2#prod_count {
 #product-bestel div {
     clear: none;
 }
+
+/** Slider **/
+#slider { height: 250px; overflow:hidden; }
+#slider .viewport { float: left; width: 750px; height: 250px; overflow: hidden; position: relative; }
+#slider .buttons { display: block; margin: 30px 10px 0 0; float: left; }
+#slider .next { margin: 30px 0 0 10px;  }
+#slider .disable { visibility: hidden; }
+#slider .overview { list-style: none; position: absolute; padding: 0; margin: 0; left: 0; top: 0; }
+#slider .overview li{ float: left; margin: 0 20px 0 0; padding: 1px; height: 246px; border: 1px solid #dcdcdc; width: 746px;}

@@ -21,6 +21,13 @@
 	padding:0;
 }
 
+ html, body {
+    height: 100%;
+    margin: 0 0 1px;
+    padding: 0;
+ }
+
+
 .clear {
     clear: both;
     padding: 0;
@@ -68,6 +75,25 @@ h4 {
 }
 ul, li {
 	margin: 0;
+}
+
+/** Flash **/
+.flash {
+    border: 1px solid #AAA;
+    background: #F5F5F5;
+    padding: 10px 1em 10px 30px;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
+    margin-bottom: 1em;
+}
+.flash_succes {
+    border-color: #A8CF9B;
+    background: #F3FFEF url('../img/dashboard/icons/10.png') 8px 10px no-repeat;
+}
+.flash_error {
+    border-color: #CFA89B;
+    background: #FFF3EF url('../img/dashboard/icons/50.png') 8px 10px no-repeat;
 }
 
 /** Tables **/

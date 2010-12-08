@@ -4,4 +4,8 @@
 /* @var $html HtmlHelper */
 /* @var $javascript JavascriptHelper */
 ?>
-ERROR
+<div class="flash flash_error">
+<?php
+    echo $message;
+?>
+</div>

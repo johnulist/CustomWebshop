@@ -13,7 +13,7 @@
     <table class="lijst" width="100%">
         <tr>
             <th>Merk</th>
-            <th>Aantal producten</th>
+            <th>Tonen in menu?</th>
             <th colspan="2">Opties</th>
         </tr>
         <?php
@@ -21,7 +21,7 @@
             {
                 print '<tr class="' . $cw->cycle() . '">';
                 print '<td>' . $merk['Merk']['naam'] . '</td>';
-                print '<td>' . $merk['Merk']['count_producten'] . '</td>';
+                print '<td>' . ($merk['Merk']['flagToonInMenu'] ? 'ja' : 'nee') . '</td>';
                 print '<td class="optie-cell">' . $html->link($html->image('dashboard/icons/71.png'), '/admin/merken/bewerken/' . $merk['Merk']['id'], array('escape' => false)) . '</td>';
                 print '<td class="optie-cell last">' . $html->link($html->image('dashboard/icons/12.png'), '/admin/merken/verwijderen/' . $merk['Merk']['id'], array('escape' => false), 'Weet je zeker dat je dit merk wilt verwijderen?') . '</td>';
                 print '</tr>';

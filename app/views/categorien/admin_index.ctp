@@ -8,7 +8,7 @@
 
 
 <div id="cta">
-	<button class="add" onclick="location.href='<?php echo $html->url('/admin/categorien/toevoegen/'); ?>'"><span>Categorie toevoegen</span></button>
+	<button class="add" onclick="location.href='<?php echo $html->url('/admin/categorien/bewerken/'); ?>'"><span>Categorie toevoegen</span></button>
 </div>
 
 <ul id="tabs"></ul>
@@ -34,10 +34,10 @@
 
                 print "<td class='nested-cell'>" . $categorie['Categorie']['naam'] . "</td>";
                 print "<td>" . $categorie['Categorie']['count_producten'] . "</td>";
-				print "<td class='optie-icon-cell'>" . $html->link($html->image('dashboard/icons/71.png', array('alt' => 'bewerken')), '/admin/categorien/bewerken/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Bewerk deze pagina')) . "</td>";
-				print "<td class='optie-icon-cell'>" . $html->link($html->image('dashboard/icons/3.png', array('alt' => 'omhoog')), '/admin/categorien/omhoog/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Verplaats deze pagina')) . "</td>";
-				print "<td class='optie-icon-cell'>" . $html->link($html->image('dashboard/icons/4.png', array('alt' => 'omlaag')), '/admin/categorien/omlaag/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Verplaats deze pagina')) . "</td>";
-				print "<td class='optie-icon-cell'>" . $html->link($html->image('dashboard/icons/12.png', array('alt' => 'verwijderen')), '/admin/categorien/verwijderen/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Verwijder deze pagina'), "Weet je zeker dat je de categorie '".str_replace('&nbsp;','',$categorie['Categorie']['naam'])."' en alle onderliggende pagina's wilt verwijderen?") . "</td>";
+				print "<td class='optie-cell'>" . $html->link($html->image('dashboard/icons/71.png', array('alt' => 'bewerken')), '/admin/categorien/bewerken/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Bewerk deze pagina')) . "</td>";
+				print "<td class='optie-cell'>" . $html->link($html->image('dashboard/icons/3.png', array('alt' => 'omhoog')), '/admin/categorien/omhoog/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Verplaats deze pagina')) . "</td>";
+				print "<td class='optie-cell'>" . $html->link($html->image('dashboard/icons/4.png', array('alt' => 'omlaag')), '/admin/categorien/omlaag/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Verplaats deze pagina')) . "</td>";
+				print "<td class='optie-cell'>" . $html->link($html->image('dashboard/icons/12.png', array('alt' => 'verwijderen')), '/admin/categorien/verwijderen/' . $categorie['Categorie']['id'], array('escape' => false, 'title' => 'Verwijder deze pagina'), "Weet je zeker dat je de categorie '".str_replace('&nbsp;','',$categorie['Categorie']['naam'])."' en alle onderliggende pagina's wilt verwijderen?") . "</td>";
 				print "</tr>";
 
 				if(count($categorie['children']) > 0)

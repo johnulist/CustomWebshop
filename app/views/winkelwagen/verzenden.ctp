@@ -16,7 +16,7 @@
         echo '<input type="radio" name="levermethode" value="' . $levermethode['Levermethode']['id'] . '" />';
         echo $levermethode['Levermethode']['levermethode'];
     }
-
+    
     echo '<div id="afleveradres">';
     echo '<h2>Afleveradres</h2>';
     echo $form->input('Bestelling.adres', array('value' => $params['gebruiker']['afleveradres']));

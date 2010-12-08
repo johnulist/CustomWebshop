@@ -33,10 +33,13 @@
     echo '<div id="tab_algemeen" class="tab_content">';
     echo $form->input('Product.productcode');
     echo $form->input('Product.naam');
-    echo $form->input('Product.omschrijving_kort');
-    echo $form->input('Product.omschrijving_lang');
+    echo $form->input('Product.beschikbaar', array('options' => array(0 => 'nee', 1 => 'ja'), 'label' => 'Toon in shop?'));
     echo $form->input('Product.merk_id', array('options' => $merken));
     echo $form->input('Categorie', array('type' => 'select', 'multiple' => true, 'options' => $categorien, 'escape' => false));
+    
+    echo $form->input('Product.omschrijving_kort', array('type' => 'textarea', 'style' => 'height: 200px; width: 500px;'));
+    echo $form->input('Product.omschrijving_lang', array('type' => 'textarea', 'style' => 'height: 600px; width: 500px;'));
+    
     echo '</div>';
 
     // Tab attributen
@@ -47,9 +50,9 @@
     // Tab prijs en voorraad
     echo '<div id="tab_prijs" class="tab_content">';
     echo $form->input('Product.voorraad');
-    echo $form->input('Product.levertijd');
-    echo $form->input('Product.verkoopprijs');
+    echo $form->input('Product.levertijd', array('style' => 'width: 50px;', 'after' => $form->select('Product.levereenheid', array('weken' => 'weken', 'dagen' => 'dagen'), 'dag', array('empty' => false))));
     echo $form->input('Product.inkoopprijs');
+    echo $form->input('Product.verkoopprijs');
     echo $form->input('Product.aanbiedingsprijs');
     echo $form->input('Product.btw', array('value' => 19));
     echo '</div>';
@@ -67,12 +70,14 @@
 
     if(isset($this->data['Productafbeelding']))
     {
-        echo '<div class="input afbeelding">';
         foreach($this->data['Productafbeelding'] as $afbeelding)
         {
-            echo $html->link($image->resize($afbeelding['bestandsnaam'], 120, 90), '/admin/producten/afbeelding_verwijderen/' . $afbeelding['id'], array('escape' => false), 'Weet je zeker dat je deze afbeelding wilt verwijderen?');
-        }
-        echo '</div>';
+            echo '<div class="afbeelding">';
+            echo $image->resizeAndCrop($afbeelding['bestandsnaam'], 200, 150);
+            echo $html->link('als hoofdafbeelding', '/admin/producten/hoofdafbeelding/' . $afbeelding['id'], array('class' => 'hoofd', 'escape' => false));
+            echo $html->link('verwijderen', '/admin/producten/afbeelding_verwijderen/' . $afbeelding['id'], array('class' => 'del', 'escape' => false), 'Weet je zeker dat je deze afbeelding wilt verwijderen?');
+            echo '</div>';
+        }        
     }
     
     echo '</div>';

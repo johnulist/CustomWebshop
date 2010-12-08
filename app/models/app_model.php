@@ -1,5 +1,6 @@
 <?php
-    class AppModel extends Model
+    App::import('Lib', 'LazyModel');
+    class AppModel extends LazyModel
     {
         var $actsAs = array('Containable');
         var $recursive = -1;
@@ -20,6 +21,20 @@
                 $args = func_get_args();
                 return call_user_func_array(array('parent', 'find'), $args);
             }
+        }
+
+        function identicalFieldValues( $field=array(), $compare_field=null )
+        {
+            foreach( $field as $key => $value ){
+                $v1 = $value;
+                $v2 = $this->data[$this->name][ $compare_field ];
+                if($v1 !== $v2) {
+                    return FALSE;
+                } else {
+                    continue;
+                }
+            }
+            return TRUE;
         }
 
         function getSelectList($conditions=null, $keyPath=null, $valuePath=null, $spacer= '&nbsp;&nbsp;&nbsp;&nbsp;', $recursive=null,$prefix = '&raquo;')

@@ -39,6 +39,12 @@
 
 		public function datum($datum, $format = "%e %B %Y")
 		{
+            // Check for Windows and only attempt to replace
+            // the %e modifiers if they exists in the format
+            if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' && strpos($format, '%e') !== false) {
+                $format = str_replace('%e', '%#d', $format);
+            }
+            
 			$timestamp = strtotime($datum);
 			return strftime($format, $timestamp);
 		}

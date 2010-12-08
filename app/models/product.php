@@ -10,7 +10,7 @@
 
         // Relaties met andere modellen
         var $belongsTo = array('Merk','Attributenset');
-        var $hasMany = array('Productafbeelding' => array('foreignKey' => 'product_id'));
+        var $hasMany = array('Productafbeelding' => array('foreignKey' => 'product_id', 'order' => 'Productafbeelding.isHoofdafbeelding DESC, Productafbeelding.id ASC'));
         var $hasAndBelongsToMany = array(
             'Categorie' => array(
                 'joinTable' => 'categorien_producten',
@@ -23,13 +23,16 @@
         function afterFind($results, $primary)
         {
             // Itereren over producten
-            foreach ($results as $key => $val)
+            if($primary)
             {
-                // Controleren of we een product kunnen vinden
-                if (isset($val['Product']))
+                foreach ($results as $key => $val)
                 {
-                    $results[$key]['Product']['prijs'] = (empty($val['Product']['aanbiedingsprijs']) ? $val['Product']['verkoopprijs'] : $val['Product']['aanbiedingsprijs']);
-                    $results[$key]['Product']['btw_bedrag'] = $results[$key]['Product']['prijs'] * ($val['Product']['btw'] / 100);
+                    // Controleren of we een product kunnen vinden
+                    if (isset($val['Product']))
+                    {
+                        $results[$key]['Product']['prijs'] = (empty($val['Product']['aanbiedingsprijs']) ? $val['Product']['verkoopprijs'] : $val['Product']['aanbiedingsprijs']);
+                        $results[$key]['Product']['btw_bedrag'] = $results[$key]['Product']['prijs'] * ($val['Product']['btw'] / 100);
+                    }
                 }
             }
 
@@ -44,21 +47,44 @@
          */
         function checkUpload($data)
         {
-            if($bestandsnaam = $this->uploadBestand($data['Afbeelding']['data'], 'img/producten/'))
+            if(is_uploaded_file($data['Afbeelding']['tmp_name']))
             {
-                $this->Productafbeelding->create();
-                $afbeelding = array('Productafbeelding' => array(
-                    'bestandsnaam' => $bestandsnaam,
-                    'product_id' => $data['Product']['id']
-                ));
-                $this->Productafbeelding->save($afbeelding);
+                if($bestandsnaam = $this->uploadBestand($data['Afbeelding']['data'], 'img/producten/'))
+                {
+                    $this->Productafbeelding->create();
+                    $afbeelding = array('Productafbeelding' => array(
+                        'bestandsnaam' => $bestandsnaam,
+                        'product_id' => $data['Product']['id']
+                    ));
+                    $this->Productafbeelding->save($afbeelding);
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                // Upload skippen
+                return true;
             }
+        }
+
+        /**
+         * Stelt een hoofdafbeelding in bij een product. De voorgaande
+         * hoofdafbeelding wordt tevens uitgezet.
+         *
+         * @param integer $product_id       ID van het product
+         * @param integer $afbeelding_id    ID van de nieuwe hoofdafbeelding
+         */
+        function setHoofdafbeelding($product_id, $afbeelding_id)
+        {
+            $this->query("UPDATE productafbeeldingen SET isHoofdafbeelding = 0 WHERE product_id = '$product_id'");
+            $this->query("UPDATE productafbeeldingen SET isHoofdafbeelding = 1 WHERE id = '$afbeelding_id'");
+
+            return true;
         }
     }
  ?>

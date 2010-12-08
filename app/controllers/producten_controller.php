@@ -88,6 +88,7 @@
             $merken = $this->Categorie->getMerken($parent_id);
             $children = $this->Categorie->children($parent_id, true);
             $this->params['linkerblokken'][] = 'categoriefilter'; 
+            unset($this->params['linkerblokken']['merken']);
             
             $this->set('path', $path);
             $this->set('categorie',  $categorie);
@@ -95,6 +96,41 @@
             $this->set('children', $children);
             $this->set('sortOrders', $this->sortOrders);
             $this->set('sortOrder',  $this->sortOrder);
+
+            // meta
+            $this->params['meta_title'] = (empty($categorie['Categorie']['meta_title']) ? $categorie['Categorie']['naam'] : $categorie['Categorie']['meta_title']);
+			$this->params['meta_keywords'] = (empty($categorie['Categorie']['meta_keywords']) ? $this->params['meta_keywords'] : $categorie['Categorie']['meta_keywords']);
+			$this->params['meta_description'] = (empty($categorie['Categorie']['meta_description']) ? $categorie['Categorie']['omschrijving'] : $categorie['Categorie']['meta_description']);
+        }
+
+        /**
+         * Toont een lijst producten op basis van zoektermen.
+         *
+         * Parameters kunnen worden aangegeven via zowel POST als named.
+         * Mogelijke filters zijn 'merk',
+         */
+        function zoeken()
+        {
+            // conditions voor 'alles'
+            $conditions = array();
+
+            // merkfilter controleren
+            $merk = (isset($this->params['named']['merk']) ? $this->params['named']['merk'] : null);
+            $merk = (isset($this->data['Zoeken']['merk']) ? $this->data['Zoeken']['merk'] : $merk);
+            if(!empty($merk))
+            {
+                $conditions[] = "Merk.naam LIKE '%$merk%'";
+            }
+
+            // zoekparameters samenvoegen
+            $this->paginate = array(
+                'conditions' => $conditions,
+                'contain' => array('Merk','Productafbeelding'),
+                'limit' => 25
+            );
+
+            // zoeken
+            $this->data = $this->Paginate('Product');
         }
 
         /**
@@ -114,8 +150,12 @@
                 'order' => 'Product.aanbiedingsprijs ASC',
                 'limit' => 9
             );
-
+            
             $this->data = $this->paginate('Product');
+
+            // slides
+            $this->loadModel('Banner');
+            $this->set('banners', $this->Banner->find('all', array('order' => 'Banner.lft ASC')));
         }
 
         /**
@@ -149,6 +189,11 @@
         {
             $this->Product->contain(array('Productafbeelding','Merk','Categorie'));
             $this->data = $this->Product->read(null, $product_id);
+
+            // meta
+			$this->params['meta_title'] = (empty($this->data['Product']['meta_title']) ? $this->data['Product']['naam'] : $this->data['Product']['meta_title']);
+			$this->params['meta_keywords'] = (empty($this->data['Product']['meta_keywords']) ? $this->params['meta_keywords'] : $this->data['Product']['meta_keywords']);
+			$this->params['meta_description'] = (empty($this->data['Product']['meta_description']) ? $this->data['Product']['omschrijving_kort'] : $this->data['Product']['meta_description']);
         }
 
 
@@ -157,11 +202,43 @@
          */
         function admin_index()
         {
+            $conditions = array();
+
+            // Code
+            if(isset($this->data['Filter']['productcode']) && !empty($this->data['Filter']['productcode']))
+            {
+                $code = mysql_escape_string($this->data['Filter']['productcode']);
+                $conditions[] = "Product.productcode LIKE '%$code%'";
+                $this->set('code', $code);
+            }
+
+            if(isset($this->data['Filter']['product']) && !empty($this->data['Filter']['product']))
+            {
+                $product = mysql_escape_string($this->data['Filter']['product']);
+                $conditions[] = "Product.naam LIKE '%$product%'";
+                $this->set('product', $product);
+            }
+            
+            if(isset($this->data['Filter']['merk']) && !empty($this->data['Filter']['merk']))
+            {
+                $merk = mysql_escape_string($this->data['Filter']['merk']);
+                $conditions[] = "Merk.naam LIKE '%$merk%'";
+                $this->set('merk', $merk);
+            }
+
+            if(isset($this->data['Filter']['beschikbaar']) && $this->data['Filter']['beschikbaar'] !== "")
+            {
+                $beschikbaarheid = intval($this->data['Filter']['beschikbaar']);
+                $conditions[] = "Product.beschikbaar LIKE '%$beschikbaarheid%'";
+            }
+
             $this->paginate = array(
                 'order' => 'Product.naam ASC',
-                'limit' => 50,
-                'contain' => 'Merk'
+                'contain' => 'Merk',
+                'conditions' => $conditions,
+                'limit' => 50
             );
+
             $this->data = $this->paginate('Product');
         }
 
@@ -220,6 +297,23 @@
             }
             
             $this->redirect('/admin/producten/bewerken/' . $afbeelding['Productafbeelding']['product_id'] . '#tab_afbeeldingen');
+        }
+
+        function admin_hoofdafbeelding($afbeelding_id)
+        {
+            $afbeelding = $this->Product->Productafbeelding->read(null, $afbeelding_id);
+            $product_id = $afbeelding['Productafbeelding']['product_id'];
+
+            if($this->Product->setHoofdafbeelding($product_id, $afbeelding_id))
+            {
+                $this->Session->setFlash("Hoofdafbeelding ingesteld", "flash_succes");
+            }
+            else
+            {
+                $this->Session->setFlash("De hoofdafbeelding kon niet worden ingesteld", "flash_error");
+            }
+
+            $this->redirect('/admin/producten/bewerken/' . $product_id . '#tab_afbeeldingen');
         }
 
         /**

@@ -30,8 +30,8 @@
     }
     else
     {
-        echo '<tr class="ww-totalen"><td colspan="2"><td class="ww-totalen-label">BTW</td><td>' . $number->currency($params['winkelwagen']['btw']) . '</td></tr>';
-        echo '<tr class="ww-totalen"><td colspan="2"><td class="ww-totalen-label">Totaal</td><td>' . $number->currency($params['winkelwagen']['totaal'] + $params['winkelwagen']['btw']) . '</td></tr>';
+        echo '<tr class="ww-totalen"><td colspan="2"><td class="ww-totalen-label">BTW</td><td>' . $number->currency($params['winkelwagen']['subtotaal_btw']) . '</td></tr>';
+        echo '<tr class="ww-totalen"><td colspan="2"><td class="ww-totalen-label">Totaal</td><td>' . $number->currency($params['winkelwagen']['totaal'] + $params['winkelwagen']['subtotaal_btw']) . '</td></tr>';
     }
     
     

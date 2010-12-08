@@ -23,11 +23,12 @@
         /**
          * Toevoegen van een categorie
          */
-        function admin_toevoegen()
+        function admin_bewerken($categorie_id = null)
         {
             if(!empty($this->data))
 			{
                 $this->Categorie->create();
+                $this->Categorie->id = $categorie_id;
 				if($this->Categorie->save($this->data))
                 {
                     $this->Session->setFlash('De categorie is succesvol toegevoegd', 'flash_success');
@@ -38,6 +39,10 @@
                     $this->Session->setFlash('Er is een fout opgetreden bij het opslaan', 'flash_error');
                 }
 			}
+            else
+            {
+                $this->data = $this->Categorie->read(null, $categorie_id);
+            }
 
 			$this->set('lijst_categorien', $this->Categorie->getSelectList());
         }

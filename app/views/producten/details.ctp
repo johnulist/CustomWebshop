@@ -90,13 +90,11 @@
 
 </div>
 
-<?php echo $html->script('jquery.fancybox-1.3.4.pack', array('inline' => false)); ?>
+<?php echo $html->script('jquery.colorbox-min', array('inline' => false)); ?>
 <script type="text/javascript">
 
     $(document).ready(function(){
-        $("a.fancybox").fancybox(
-
-        );
+        $("a.fancybox").colorbox();
     });
 
 </script>

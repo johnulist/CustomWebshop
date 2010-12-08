@@ -10,6 +10,7 @@
             if($params['isIngelogd'])
             {
                 echo 'Welkom ' . $html->link($params['gebruiker']['contactpersoon'], '/gebruikers/dashboard/');
+                echo ' (' . $html->link('x', '/gebruikers/uitloggen/') . ')';
             }
             else
             {

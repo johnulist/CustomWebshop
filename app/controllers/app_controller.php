@@ -60,6 +60,10 @@
             {
                 $this->layout = 'beheer';
             }
+            else
+            {
+                $this->_activeerMerkenBlok();
+            }
 		}
 
         /**
@@ -86,6 +90,22 @@
         function isBeheerder()
         {
             return ($this->Auth->user('isBeheerder') == 1);
+        }
+
+        /**
+         * Voegt een blok toe aan de linkerkolom met enkele merken die
+         * de webshop verkoopt.
+         */
+        function _activeerMerkenBlok()
+        {
+            $this->loadModel('Merk');
+            $this->set('merken',$this->Merk->find('all', array(
+                'order' => 'Merk.naam ASC',
+                'conditions' => array('Merk.flagToonInMenu' => 1),
+                'limit' => 10
+            )));
+
+            $this->params['linkerblokken']['merken'] = 'merken';
         }
 
         /**
@@ -116,13 +136,13 @@
 			{
 				// nieuwe winkelwagen aanmaken
 				$this->params['winkelwagen'] = array(
-					'aantal'    => 0,
-					'totaal'    => 0,
-                    'btw'       => 0,
-					'ex'        => 0,
-					'levering' => array(),
-                    'betaling'  => array(),
-					'producten' => array()
+					'aantal'         => 0,
+					'totaal'         => 0,
+                    'subtotaal_btw'  => 0,
+					'subtotaal_excl' => 0,
+					'levering'       => array(),
+                    'betaling'       => array(),
+					'producten'      => array()
 				);
 
                 $this->Session->write('winkelwagen', $this->params['winkelwagen']);
@@ -143,9 +163,9 @@
             $product = $this->Product->read(null, $product_id);
 
             // Update van prijs en aantal
-            $this->params['winkelwagen']['aantal']      = $this->params['winkelwagen']['aantal'] + 1;
-            $this->params['winkelwagen']['totaal']      = $this->params['winkelwagen']['totaal'] + $product['Product']['prijs'];
-            $this->params['winkelwagen']['btw']         = $this->params['winkelwagen']['btw'] + $product['Product']['btw_bedrag'];
+            $this->params['winkelwagen']['aantal']          = $this->params['winkelwagen']['aantal'] + 1;
+            $this->params['winkelwagen']['totaal']          = $this->params['winkelwagen']['totaal'] + $product['Product']['prijs'];
+            $this->params['winkelwagen']['subtotaal_btw']   = $this->params['winkelwagen']['subtotaal_btw'] + $product['Product']['btw_bedrag'];
                         
             // Locatie van toevoegen bepalen (nieuw of extra?)
             if(array_key_exists($product_id, $this->params['winkelwagen']['producten']))

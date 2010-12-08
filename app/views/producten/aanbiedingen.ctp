@@ -5,9 +5,9 @@
 /* @var $javascript JavascriptHelper */
 ?>
 <?php
-    if(isset($slides) && count($slides) > 0)
+    if(isset($banners) && count($banners) > 0)
     {
-        echo $this->element('slider');
+        echo $this->element('carousel');
     }
 
     echo $this->element('producten', array(
