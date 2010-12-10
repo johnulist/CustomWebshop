@@ -1,3 +1,5 @@
+<h1><?php echo Configure::read('Site.naam'); ?></h1>
+
 <table width='100%'>
 	<tr><td colspan='6'><font color='#ffffff'>.</font></td></tr>
 
@@ -42,17 +44,22 @@
 		<td>Bestelnummer:</td><td><?php echo $this->data['Bestelling']['id']; ?></td>
 	</tr>
 	<tr>
-		<td colspan='4'><?php echo $this->data['Gebruiker']['factuuradres_postcode']; ?> <?php echo $this->data['Gebruiker']['factuuradres_plaats']; ?></td>
-		<?php if(!is_null($this->data['Bestelling']['factuurdatum'])): ?>
-		<td>Factuurdatum:</td><td><?php echo date("d.m.Y", strtotime($this->data['Bestelling']['factuurdatum'])); ?></td>
+		<td colspan='4'><?php echo $this->data['Bestelling']['factuuradres_postcode']; ?> <?php echo $this->data['Bestelling']['factuuradres_plaats']; ?></td>
+		<td>Besteldatum:</td><td><?php echo $cw->datum($this->data['Bestelling']['besteldatum'], "%d-%m-%Y"); ?></td>
+	</tr>
+    <tr>
+        <td colspan='4'></td>
+		<?php if(!is_null($this->data['Bestelling']['factuurnummer'])): ?>
+		<td>Factuurnummer:</td><td><?php echo $this->data['Bestelling']['factuurnummer']; ?></td>
 		<?php else: ?>
 		<td></td><td></td>
 		<?php endif; ?>
-	</tr>
+        
+    </tr>
 	<tr>
 		<td colspan='4'></td>
-		<?php if(!is_null($this->data['Bestelling']['factuurnummer'])): ?>
-		<td>Factuurnummer:</td><td><?php echo $this->data['Bestelling']['factuurnummer']; ?></td>
+        <?php if(!is_null($this->data['Bestelling']['factuurdatum'])): ?>
+		<td>Factuurdatum:</td><td><?php echo $cw->datum($this->data['Bestelling']['factuurdatum'], "%d-%m-%Y"); ?></td>
 		<?php else: ?>
 		<td></td><td></td>
 		<?php endif; ?>
@@ -72,8 +79,8 @@
 <table width='100%'>
 
     <tr>
-    	<td nowrap='nowrap'><b>Artikelomschrijving</b><font color='#ffffff'>sssssssssssssssssssssss</font></td>
     	<td><b>Aantal</b></td>
+        <td nowrap='nowrap'><b>Artikelomschrijving</b><font color='#ffffff'>sssssssssssssssssssssss</font></td>
     	<td><b>BTW%</b></td>
     	<td nowrap align='right'><b>Prijs p/s</b></td>
     	<td nowrap align='right'><b>Totaalbedrag</b></td>
@@ -94,6 +101,7 @@
                 // titel
                 print '<td class="wli-aantal">' . $regel['aantal'] . '</td>';
                 print '<td class="wli-titel">' .  $regel['Product']['naam'] . '</td>';
+                print '<td class="wli-titel">' .  $regel['Product']['btw'] . '</td>';
                 print '<td class="wli-aantal">' . $number->currency($regel['prijs_excl']) . '</td>';
                 print '<td class="wli-aantal">' . $number->currency($regel['totaal_excl']) . '</td>';
 
@@ -110,8 +118,11 @@
     	$totaalbtw = 0;
     	foreach($btw as $percentage => $bedrag)
     	{
-    		$totaalbtw += $bedrag;
-    		print "<tr><td colspan='4' align='right'>BTW $percentage%</td><td align='right'>&euro;".$number->precision($bedrag, 2)."</td></tr>\n";
+            if($bedrag > 0)
+            {
+                $totaalbtw += $bedrag;
+                print "<tr><td colspan='4' align='right'>BTW $percentage%</td><td align='right'>&euro;".$number->precision($bedrag, 2)."</td></tr>\n";
+            }
     	}
     ?>
     
@@ -124,8 +135,12 @@
 
 
 <?php
-	print "<h3>Opmerkingen</h3>";
-    print nl2br($this->data['Bestelling']['opmerkingen']);
+    if(!empty($this->data['Bestelling']['opmerkingen']))
+    {
+        print "<h3>Opmerkingen</h3>";
+        print nl2br($this->data['Bestelling']['opmerkingen']);
+    }
 ?>
 
+<br />
 <br />

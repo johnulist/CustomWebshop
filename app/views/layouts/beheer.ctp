@@ -26,6 +26,7 @@
         // Overige header tags
         print "<link rel='shortcut icon' href='/img/favicon.ico' type='image/ico' />\n";
         print $html->css('reset')."\n";
+        print $html->css('colorbox')."\n";
         print $html->css('beheer')."\n";
 	?>
 

@@ -6,7 +6,7 @@
 ?>
 <div class="block-titel">Merken</div>
 <div id="cta">
-	<button class="add" onclick="location.href='<?php echo $html->url('/admin/merken/toevoegen/'); ?>';"><span>Merk toevoegen</span></button>
+	<button class="add" onclick="location.href='<?php echo $html->url('/admin/merken/bewerken/'); ?>';"><span>Merk toevoegen</span></button>
 </div>
 <ul id="tabs"></ul>
 <div class="tab_container">

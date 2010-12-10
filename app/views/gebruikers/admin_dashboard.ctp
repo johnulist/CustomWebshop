@@ -10,8 +10,8 @@
 <div class="dashboard">
 
     <div class="bestelcount"><div class="number"><?php echo count($bestellingen); ?></div> bestellingen<br /> deze maand</div>
-    <div class="inkomstencount"><div class="number"><?php echo $number->currency($inkomsten); ?></div> inkomsten<br /> deze maand</div>
-    <div class="factuurcount"><div class="number"><?php echo $openstaand; ?></div> openstaande facturen<br /> t.w.v. <?php echo $number->currency($debetsaldo); ?></div>
+    <div class="inkomstencount"><div class="number"><?php echo $number->currency($omzet); ?></div> omzet deze maand<br />&nbsp;</div>
+    <div class="factuurcount"><div class="number"><?php echo $number->currency($debetsaldo); ?></div> nog niet voldaan, <br /> in <?php echo $openstaand; ?> facturen<br /></div>
     
     <div id="graph" class="graph"></div>
 

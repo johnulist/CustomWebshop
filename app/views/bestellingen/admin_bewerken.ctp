@@ -41,40 +41,50 @@
         <table width="100%">
             <tr>
                 <td nowrap='nowrap'>Naam</td><td><?php echo $form->select('Bestelling.gebruiker_id', $relaties, null, array('style' => 'width: 300px;', 'onchange' => "$('.adresveld').val('')"), false); ?></td>
-                <td nowrap='nowrap'>Klantnummer</td><td nowrap><?php echo $this->data['Gebruiker']['id']; ?></td>
+                <td nowrap='nowrap'>Klantnummer</td><td nowrap id="klantnummer"><?php echo $this->data['Gebruiker']['id']; ?></td>
             </tr>
             <tr>
-                <td nowrap='nowrap'>Bedrijf</td><td><?php echo $this->data['Gebruiker']['bedrijfsnaam']; ?></td>
+                <td nowrap='nowrap'>Bedrijf</td><td id="bedrijfsnaam"><?php echo $this->data['Gebruiker']['bedrijfsnaam']; ?></td>
+                <td nowrap='nowrap' valign='top'>Bestelnummer</td><td nowrap='nowrap' valign='top'><?php echo $this->data['Bestelling']['id']; ?></td>
+            </tr>
+            <tr>
+                <td nowrap='nowrap' valign='top'>Factuuradres</td>
+                <td id="factuuradres"><?php echo $this->data['Bestelling']['factuuradres_adres']; ?>, <?php echo $this->data['Bestelling']['factuuradres_postcode']; ?>, <?php echo $this->data['Bestelling']['factuuradres_plaats']; ?></td>
+                <td nowrap='nowrap'>Besteldatum</td><td nowrap='nowrap' valign='top'><?php if(!empty($this->data)) echo $cw->datum($this->data['Bestelling']['besteldatum'], "%d-%m-%Y"); ?></td>
+            </tr>
+            <tr>
+                <td>Afleveradres</td>
+                <td id="afleveradres"><?php if($this->data['Levermethode']['flagMetAdres']) echo $this->data['Bestelling']['afleveradres_adres']; ?>, <?php echo $this->data['Bestelling']['afleveradres_postcode']; ?>, <?php echo $this->data['Bestelling']['afleveradres_plaats']; ?></td>
                 <?php if($this->data['Bestelling']['factuurnummer'] == null): ?>
-                <td nowrap='nowrap'>Factuurnummer&nbsp;&nbsp;</td><td nowrap='nowrap'><?php echo $html->link('Nu factureren','/admin/bestellingen/factureren/' . $this->data['Bestelling']['id']); ?></td>
+                <td nowrap='nowrap'>Factuurnummer&nbsp;&nbsp;</td><td nowrap='nowrap'><?php if(!empty($this->data)) echo $html->link('Nu factureren','/admin/bestellingen/factureren/' . $this->data['Bestelling']['id']); ?></td>
                 <?php else: ?>
                 <td nowrap='nowrap'>Factuurnummer&nbsp;&nbsp;</td><td nowrap='nowrap'><?php echo $form->text('Bestelling.factuurnummer'); ?></td>
                 <?php endif; ?>
             </tr>
             <tr>
-                <td nowrap='nowrap' valign='top'>Factuuradres</td>
-                <td><?php echo $this->data['Bestelling']['factuuradres_adres']; ?>, <?php echo $this->data['Bestelling']['factuuradres_postcode']; ?>, <?php echo $this->data['Bestelling']['factuuradres_plaats']; ?></td>
+                <td></td>
+                <td></td>
                 <?php if($this->data['Bestelling']['factuurdatum'] == null): ?>
                 <td nowrap='nowrap' valign='top'>Factuurdatum</td><td nowrap='nowrap' valign='top'></td>
                 <?php else: ?>
-                <td nowrap='nowrap' valign='top'>Factuurdatum</td><td nowrap='nowrap' valign='top'><?php echo $cw->datum($this->data['Bestelling']['factuurdatum']); ?></td>
+                <td nowrap='nowrap' valign='top'>Factuurdatum</td><td nowrap='nowrap' valign='top'><?php echo $cw->datum($this->data['Bestelling']['factuurdatum'], "%d-%m-%Y"); ?></td>
                 <?php endif; ?>
-            </tr>
-            <tr>
-                <td>Afleveradres</td>
-                <td><?php if($this->data['Levermethode']['flagMetAdres']) echo $this->data['Bestelling']['afleveradres_adres']; ?>, <?php echo $this->data['Bestelling']['afleveradres_postcode']; ?>, <?php echo $this->data['Bestelling']['afleveradres_plaats']; ?></td>
-                <td nowrap='nowrap' valign='top'>Bestelnummer</td><td nowrap='nowrap' valign='top'><?php echo $this->data['Bestelling']['id']; ?></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td nowrap='nowrap'>Besteldatum</td><td nowrap='nowrap' valign='top'><?php echo $cw->datum($this->data['Bestelling']['besteldatum']); ?></td>
             </tr>
         </table>
 
         <br /><br />
 
-        <?php echo $this->element('bestelling-inhoud'); ?>
+        <?php 
+            // Bij bestaande bestellingen: producten tonen
+            if(!empty($this->data))
+            {
+                echo $this->element('bestelling-inhoud');
+            }
+            else
+            {
+                print '<p>Producten kunnen worden toegevoegd nadat de nieuwe bestelling is opgeslagen.</p>';
+            }
+        ?>
         
     </div>
 
@@ -83,13 +93,18 @@
         <table>
             <tr><th colspan="2">Opmerkingen</th></tr>
             <tr><td colspan="2"><?php echo $form->textarea("Bestelling.opmerkingen", array('rows' => 10, 'cols' => 60)); ?></td></tr>
-            <tr><th colspan="2">Geschiedenis</th></tr>
-            <?php
-                foreach($this->data['Bestelstatus'] as $status)
+            
+            <?php 
+                if(!empty($this->data))
                 {
-                    print '<tr><td>' . $cw->datum($status['created']) . '</td><td>' . $status['status'] . '</td><td colspan="4"></td></tr>';
+                    print '<tr><th colspan="2">Geschiedenis</th></tr>';
+                    foreach($this->data['Bestelstatus'] as $status)
+                    {
+                        print '<tr><td>' . $cw->datum($status['created']) . '</td><td>' . $status['status'] . '</td><td colspan="4"></td></tr>';
+                    }
                 }
             ?>
+
         </table>
 
     </div>
@@ -109,7 +124,7 @@
             <tr>
                 <td>Verzendkosten</td>
                 <td><?php echo $form->input('Bestelling.verzendkosten_excl', array('label' => false, 'div' => false)); ?>
-                <td>excl. <?php echo $this->data['Levermethode']['btw']; ?>% BTW</td>
+                <td>excl. BTW</td>
             </tr>
             <tr>
                 <td nowrap='nowrap' valign='top'>Afleveradres</td>
@@ -139,6 +154,10 @@
             </tr>
             <tr>
                 <td nowrap='nowrap'>Betaalstatus</td><td><?php print $form->input('Bestelling.isBetaald', array('label' => false, 'div' => false, 'options' => array(0 => 'nog niet betaald', 1 => 'betaald'))); ?></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td nowrap='nowrap'>Betaaldatum</td><td><?php print $form->input('Bestelling.betaaldatum', array('type' => 'date', 'minYear' => 2010, 'maxYear' => date('Y'), 'empty' => '-', 'dateFormat' => 'DMY', 'label' => false, 'div' => false)); ?></td>
                 <td></td>
             </tr>
             <tr>
@@ -178,6 +197,22 @@
         $('#BestellingLevermethodeId').bind('change', function(){
             var selected = $('#BestellingLevermethodeId').val();
             $('#BestellingVerzendkostenExcl').val(verzendkosten[selected]);
+        });
+
+        $('#BestellingGebruikerId').bind('change', function(){
+            var relatie_id = $('#BestellingGebruikerId').val();
+            $.getJSON('<?php echo $html->url('/admin/gebruikers/ajax_adres/'); ?>' + relatie_id , function(data) {
+                $("#factuuradres").html(data.Gebruiker.factuuradres + ', ' + data.Gebruiker.f_postcode + ', ' + data.Gebruiker.f_plaats);
+                $("#afleveradres").html(data.Gebruiker.afleveradres + ', ' + data.Gebruiker.a_postcode + ', ' + data.Gebruiker.a_plaats);
+                $("#bedrijfsnaam").html(data.Gebruiker.bedrijfsnaam);
+                $("#klantnummer").html(data.Gebruiker.id);
+                $("#BestellingAfleveradresAdres").val(data.Gebruiker.afleveradres);
+                $("#BestellingAfleveradresPostcode").val(data.Gebruiker.a_postcode);
+                $("#BestellingAfleveradresPlaats").val(data.Gebruiker.a_plaats);
+                $("#BestellingFactuuradresAdres").val(data.Gebruiker.factuuradres);
+                $("#BestellingFactuuradresPostcode").val(data.Gebruiker.f_postcode);
+                $("#BestellingFactuuradresPlaats").val(data.Gebruiker.f_plaats);
+            });
         });
 
     });

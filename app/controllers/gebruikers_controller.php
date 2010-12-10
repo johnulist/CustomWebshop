@@ -73,7 +73,7 @@
                 )
             ));
         
-            $inkomsten = 0;
+            $omzet = 0;
             $graph_betaald = $graph_bestellingen = array_combine(range(1, date("t")), array_fill(0,date("t"),0));
             
             foreach($bestellingen as $bestelling)
@@ -83,10 +83,10 @@
 
                 if($bestelling['Bestelling']['isBetaald'])
                 {
-                    $inkomsten += $bestelling['Bestelling']['totaal_incl'];
                     $graph_betaald[$dag]++;
                 }
                 
+                $omzet += $bestelling['Bestelling']['totaal_incl'];
                 $graph_bestellingen[$dag]++;
             }
 
@@ -104,8 +104,13 @@
             }
             $openstaand = count($openstaand);
 
-            $this->set(compact('bestellingen','inkomsten','openstaand','debetsaldo','graph_bestellingen', 'graph_betaald'));
+            $this->set(compact('bestellingen','omzet','openstaand','debetsaldo','graph_bestellingen', 'graph_betaald'));
+        }
 
+        function admin_ajax_adres($gebruiker_id)
+        {
+            $this->data = $this->Gebruiker->read(null, $gebruiker_id);
+            $this->layout = 'ajax';
         }
 
         /**
