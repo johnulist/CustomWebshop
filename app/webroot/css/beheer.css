@@ -8,6 +8,7 @@ body 		{ text-align: center; background: #fff;  font-family: arial,verdana; font
 #admincontainer	{ width: 950px; margin: 0 auto; text-align: left; clear: both; background: #FFF; }
 a img           { border: 0; }
 a               { color: #4A86EF; }
+option.invisible { display: none; }
 #container {
 	margin: auto 0;
 	width: auto;
@@ -288,6 +289,9 @@ button.save span    { background-image:url(../img/dashboard/save_btn_icon.gif); 
 .blok-dataform .input 						{ clear: both; border-bottom: 1px solid #eee; display: block; background: #fff; }
 .blok-dataform .error						{ background: #FFEFEF; border-bottom: 1px solid #FFDFDF; }
 .blok-dataform .content-blok .textarea		{ border: 0; }
+
+.blok-dataform .nested   { float: left;}
+.blok-dataform .nested span { margin: 6px 0 6px 6px; padding: 3px;}
 
 /* labels en errormessage */
 .blok-dataform .input label 				{ width: 180px; background: #F6F6F6; text-align: left; float: left; padding: 9px 0 9px 1em; line-height: 20px; }

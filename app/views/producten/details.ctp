@@ -88,6 +88,8 @@
 
     <div id="product-breed"><?php echo $this->data['Product']['omschrijving_lang']; ?></div>
 
+    <div id="product-ooktekoopmet">Ook te koop met: <?php echo $this->data['Product']['ooktekoopids']; ?></div>
+
 </div>
 
 <?php echo $html->script('jquery.colorbox-min', array('inline' => false)); ?>

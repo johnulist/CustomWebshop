@@ -14,8 +14,8 @@
 <ul id="tabs">
 	<li class="firsttab"></li>
 	<li><a href="#tab_algemeen">Algemeen</a></li>
-    <li><a href="#tab_attributen">Attributen</a></li>
-    <li><a href="#tab_prijs">Prijs &amp; voorraad</a></li>
+    <li><a href="#tab_attributen">Maten &amp; voorraad</a></li>
+    <li><a href="#tab_prijs">Prijs</a></li>
 	<li><a href="#tab_seo">SEO</a></li>
     <li><a href="#tab_afbeeldingen">Afbeeldingen</a></li>
 </ul>
@@ -39,18 +39,58 @@
     
     echo $form->input('Product.omschrijving_kort', array('type' => 'textarea', 'style' => 'height: 200px; width: 500px;'));
     echo $form->input('Product.omschrijving_lang', array('type' => 'textarea', 'style' => 'height: 600px; width: 500px;'));
+
+    // Ook te koop met, inclusief filter
+    echo '<div class="input select"><label for="ProductOoktekoopmet">Ook te koop met</label>';
+    echo '<div class="nested"><span>Zoeken in de lijst: <input type="text" id="product-zoekveld"/></span><br /><br />';
+    echo '<select name="ooktekoopids[]" size="10"  multiple="true" id="ooktekoopmet">';
+	foreach($ooktekoop as $id => $product)
+    {
+        $selected = (in_array($id, $ooktekoopids) ? ' selected' : '');
+        print "<option value='$id'$selected>$product</option>\n";
+    }
+    echo '</select></div>';
+    echo '<div class="clear"></div></div>';
     
     echo '</div>';
 
     // Tab attributen
     echo '<div id="tab_attributen" class="tab_content">';
-    echo $form->input('Product.attributenset_id', array('options' => $attributensets, 'empty' => __('- kies een set -', true)));
+
+    echo '<h2>Algemeen</h2>';
+    echo $form->input('Product.voorraad', array('style' => 'width: 50px;'));
+    echo $form->input('Product.levertijd', array('style' => 'width: 50px;', 'after' => $form->select('Product.levereenheid', array('weken' => 'weken', 'dagen' => 'dagen'), 'dag', array('empty' => false))));
+
+    echo '<h2>Varianten</h2>';
+    echo '<table class="lijst" width="100%">
+            <tr>
+                <th>Maat</th>
+                <th>Voorraad</th>
+                <th>Levertijd</th>
+                <th>Prijs</th>
+                <th>Opties</th>
+            </tr>';
+
+    // minimaal 5 invulvelden, meer indien alle vijf ingevuld
+    $varianten = array();
+    $max = max(count($varianten) + 1, 5);
+    for($i = 0; $i <= $max; $i++)
+    {
+        print '<tr id="voorraad-rij-' . $i . '" class="' . $cw->cycle() . '">';
+        print '<td><input type="hidden" name="varianten_id[' . $i . ']" value="' . @$varianten[$i]['id'] . '" /><input type="text" name="varianten_naam[' . $i . ']" value="' . @$varianten[$i]['naam'] . '" /></td>';
+        print '<td><input type="text" name="varianten_voorraad[' . $i . ']" value="' . @$varianten[$i]['voorraad'] . '" /></td>';
+        print '<td><input type="text" name="varianten_levertijd[' . $i . ']" value="' . @$varianten[$i]['levertijd'] . '" /></td>';
+        print '<td><input type="text" name="varianten_prijs[' . $i . ']" value="' . @$varianten[$i]['prijs'] . '" /></td>';
+        print '<td class="optie-cell last">' . $html->link($html->image('dashboard/icons/12.png'), '#', array('escape' => false), 'NYI - Weet je zeker dat je deze variant wilt verwijderen?') . '</td>';
+        print '</tr>';
+    }
+
+    echo '</table>';
+    //echo $form->input('Product.attributenset_id', array('options' => $attributensets, 'empty' => __('- kies een set -', true)));
     echo '</div>';
 
     // Tab prijs en voorraad
     echo '<div id="tab_prijs" class="tab_content">';
-    echo $form->input('Product.voorraad');
-    echo $form->input('Product.levertijd', array('style' => 'width: 50px;', 'after' => $form->select('Product.levereenheid', array('weken' => 'weken', 'dagen' => 'dagen'), 'dag', array('empty' => false))));
     echo $form->input('Product.inkoopprijs');
     echo $form->input('Product.verkoopprijs');
     echo $form->input('Product.aanbiedingsprijs');
@@ -88,6 +128,7 @@
 
 
 <script type="text/javascript">
+
     tinyMCE.init({
         theme : "advanced",
         mode : "textareas",
@@ -98,4 +139,32 @@
         theme_advanced_toolbar_align : "left",
         convert_urls : false
     });
+
+    $(document).ready(function(){
+
+        // Filter activeren voor 'ook te koop met'
+		$("#product-zoekveld").keypress(zoekenTimeout);
+		$("#product-zoekveld").change(zoeken);
+	});
+
+	function zoekenTimeout()
+	{
+		setTimeout("zoeken()", 100);
+	}
+
+	function zoeken(){
+		searchVal = new String($("#product-zoekveld").val()).toLowerCase();
+		$("#ooktekoopmet option").each(function(){
+			var elemCont = new String($(this).html());
+			elemCont = elemCont.toLowerCase();
+			if (elemCont.indexOf(searchVal) == -1 && !this.selected)
+			{
+				$(this).addClass('invisible');
+			}
+            else
+            {
+				$(this).removeClass('invisible');
+			}
+		});
+	}
 </script>

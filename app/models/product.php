@@ -28,7 +28,7 @@
                 foreach ($results as $key => $val)
                 {
                     // Controleren of we een product kunnen vinden
-                    if (isset($val['Product']))
+                    if (isset($val['Product']) && isset($val['Product']['verkoopprijs']))
                     {
                         $results[$key]['Product']['prijs'] = (empty($val['Product']['aanbiedingsprijs']) ? $val['Product']['verkoopprijs'] : $val['Product']['aanbiedingsprijs']);
                         $results[$key]['Product']['btw_bedrag'] = $results[$key]['Product']['prijs'] * ($val['Product']['btw'] / 100);

@@ -153,11 +153,15 @@
                 <td></td>
             </tr>
             <tr>
+                <td nowrap='nowrap'>Betaaltermijn</td><td><?php print $form->input('Bestelling.factuurtermijn', array('label' => false, 'div' => false)); ?></td>
+                <td>dagen</td>
+            </tr>
+            <tr>
                 <td nowrap='nowrap'>Betaalstatus</td><td><?php print $form->input('Bestelling.isBetaald', array('label' => false, 'div' => false, 'options' => array(0 => 'nog niet betaald', 1 => 'betaald'))); ?></td>
                 <td></td>
             </tr>
             <tr>
-                <td nowrap='nowrap'>Betaaldatum</td><td><?php print $form->input('Bestelling.betaaldatum', array('type' => 'date', 'minYear' => 2010, 'maxYear' => date('Y'), 'empty' => '-', 'dateFormat' => 'DMY', 'label' => false, 'div' => false)); ?></td>
+                <td nowrap='nowrap'>Betaald op</td><td><?php print $form->input('Bestelling.betaaldatum', array('type' => 'date', 'minYear' => 2010, 'maxYear' => date('Y'), 'empty' => '-', 'dateFormat' => 'DMY', 'label' => false, 'div' => false)); ?></td>
                 <td></td>
             </tr>
             <tr>

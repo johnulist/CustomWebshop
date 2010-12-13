@@ -21,7 +21,7 @@
             <th><?php echo $paginator->sort('Bedrag', 'Bestelling.totaal_incl'); ?></th>
             <th><?php echo $paginator->sort('Voldaan', 'Bestelling.isBetaald'); ?></th>
             <th>Status</th>
-            <th colspan="3">Opties</th>
+            <th colspan="4">Opties</th>
         </tr>
         <tr class="filter">
             <td><input size="6" type="text" name="data[Filter][factuurnummer]" /></td>
@@ -36,7 +36,7 @@
                     <option value="0">niet voldaan</option>
                 </select>
             </td>
-            <td colspan="3" class="submit"><input type="submit" value="Filter" />
+            <td colspan="4" class="submit"><input type="submit" value="Filter" />
         </tr>
         <?php
             foreach($this->data as $bestelling)
@@ -59,18 +59,15 @@
                 else
                 {
                     print 'nee';
-                    if($bestelling['Bestelling']['isOverTijd'])
-                    {
-                        print ' ';
-                        print $html->link($html->image('dashboard/icons/email_go.png', array('alt' => 'herinnering')),'/admin/facturen/herinnering/' . $bestelling['Bestelling']['id'], array('escape' => false, 'title' => 'Stuur een herinnering'));
-                    }
                 }
+
                 print "</td>";
 
 
                 print '<td>' . $bestelling['Bestelling']['huidige_status'] . '</td>';
                 print '<td class="optie-cell">' . $html->link($html->image('dashboard/icons/71.png'), '/admin/bestellingen/bewerken/' . $bestelling['Bestelling']['id'], array('escape' => false)) . '</td>';
                 print '<td class="optie-cell">' . $html->link($html->image('dashboard/mime/page_white_acrobat.png'), '/bestellingen/pdf/' . $bestelling['Bestelling']['id'], array('escape' => false)) . '</td>';
+                print '<td class="optie-cell">' . $html->link($html->image('dashboard/icons/email_go.png', array('alt' => 'herinnering')),'/admin/facturen/herinnering/' . $bestelling['Bestelling']['id'], array('escape' => false, 'title' => 'Stuur een herinnering')) . '</td>';
                 print '<td class="optie-cell last">' . $html->link($html->image('dashboard/icons/12.png'), '/admin/facturen/verwijderen/' . $bestelling['Bestelling']['id'], array('escape' => false), 'Weet je zeker dat je deze gebruiker wilt verwijderen?') . '</td>';
                 print '</tr>';
             }

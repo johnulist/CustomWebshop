@@ -113,7 +113,7 @@
     <tr><td colspan='5'><font color='#ffffff'>.</font></td></tr>
 
     <tr><td colspan='4' align='right'>Subtotaal</td><td align='right'><?php echo $number->currency($this->data['Bestelling']['subtotaal_excl']); ?></td></tr>
-    <tr><td colspan='4' align='right'>Verzendkosten</td><td align='right'><?php echo $number->currency($this->data['Bestelling']['verzendkosten_excl']); ?></td></tr>
+    <tr><td colspan='4' align='right'>Verzendkosten</td><td align='right'><?php echo ($this->data['Bestelling']['verzendkosten_excl'] > 0 ? $number->currency($this->data['Bestelling']['verzendkosten_excl']) : 'gratis'); ?></td></tr>
     <?php
     	$totaalbtw = 0;
     	foreach($btw as $percentage => $bedrag)

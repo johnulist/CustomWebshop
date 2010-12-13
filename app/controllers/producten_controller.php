@@ -248,7 +248,10 @@
 			{
                 $this->Product->create();
                 $this->data['Product']['id'] = $product_id;
-                
+
+                // koppelingen met andere producten
+				$this->data['Product']['ooktekoopids'] = (isset($this->params['form']['ooktekoopids']) ? implode(',', $this->params['form']['ooktekoopids']) : null);
+
 				if($this->Product->save($this->data) && $this->Product->checkUpload($this->data))
                 {
                     $this->Session->setFlash('Het product is succesvol toegevoegd', 'flash_success');
@@ -269,6 +272,11 @@
             $merken         = $this->Product->Merk->find('list', array('order' => 'Merk.naam ASC'));
             $attributensets = $this->Product->Attributenset->find('list', array('order' => 'Attributenset.naam ASC'));
             $categorien     = $this->Product->Categorie->getSelectList();
+
+            // lijst voor 'ook te koop met'
+            $this->set('ooktekoop', $this->Product->find('list', array('conditions' => array('Product.beschikbaar' => 1), 'fields' => array('Product.id', 'Product.naam'), 'order' => "Product.naam ASC")));
+			$this->set('ooktekoopids', ife(empty($this->data['Product']['ooktekoopids']), array(), explode(",", $this->data['Product']['ooktekoopids'])));
+
             $this->set(compact('merken','categorien','attributensets'));
         }
 
